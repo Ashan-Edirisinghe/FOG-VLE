@@ -17,32 +17,32 @@
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:20.8%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/semester1'">
                         1 Semester
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:35.7%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/semester2'">
                         2 Semester
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:50.6%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/viva'">
                         Viva
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:65.5%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/thesis'">
                         Final thesis
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:80.4%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/pending'">
                         Degree Pending
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:95.3%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/complete'">
                         Completed
                     </button>
                     <img src="{{ asset('img/timeline.png') }}" alt="Timeline"
@@ -55,66 +55,7 @@
         <div class="col-lg-6">
             <!-- Message Board -->
             <div class="message-board">
-                <h3>message board</h3>
-                
-                <div class="message-item">
-                    <div class="message-header">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Title</span>
-                        <button class="btn-close">×</button>
-                    </div>
-                    <div class="message-body">Body text.</div>
-                    <button class="btn-message">Button</button>
-                </div>
-                
-                <div class="message-item">
-                    <div class="message-header">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Title</span>
-                        <button class="btn-close">×</button>
-                    </div>
-                    <div class="message-body">Body text.</div>
-                    <button class="btn-message">Button</button>
-                </div>
-            </div>
-            
-            <!-- Countdown Timers -->
-            <div class="countdown-section">
-                <div class="countdown-box">
-                    <h4>Process Countdown</h4>
-                    <div class="countdown-display">
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processYears">03</span>
-                            <span class="countdown-label">Years</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processDays">20</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processHours">15</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="countdown-box">
-                    <h4>Total Countdown</h4>
-                    <div class="countdown-display">
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalYears">03</span>
-                            <span class="countdown-label">Years</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalDays">20</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalHours">15</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                    </div>
-                </div>
+                <h3>Final thesis</h3>
             </div>
         </div>
     </div>

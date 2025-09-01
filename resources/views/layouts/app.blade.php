@@ -189,13 +189,16 @@
                             <a class="nav-link" href="/login">login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/payment">payment</a>
+                            <a class="nav-link" href="/payment">payment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/timeline">Timeline</a>
+                            <a class="nav-link active" href="/timeline">Timeline</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">Welcome</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">User Profile</a>
                         </li>
                     </ul>
                 </div>

@@ -5,48 +5,59 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        
+        <!-- Left Side - Timeline -->
         <div class="col-lg-6">
-            <div class="d-flex justify-content-center align-items-center h-100" style="min-height:600px;">
-                <div style="position:relative; display:inline-block;">
-                    <!-- Button positioned relative to the image -->
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:5.9%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/supervisors'">
-                        Assigning Supervisors
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:20.8%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
-                        1 Semester
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:35.7%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
-                        2 Semester
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:50.6%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
-                        Viva
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:65.5%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
-                        Final thesis
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:80.4%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
-                        Degree Pending
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:95.3%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
-                        Completed
-                    </button>
-                    <img src="{{ asset('img/timeline.png') }}" alt="Timeline"
-                        style="max-width:100%; max-height:500px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+            <div class="timeline-container">
+                <!-- Timeline Items -->
+                <div class="timeline-wrapper">
+                    <div class="timeline-item completed">
+                        <div class="timeline-circle completed"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-label">Assigning Supervisors</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item active">
+                        <div class="timeline-circle active"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-label">1 Semester</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item pending">
+                        <div class="timeline-circle pending"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-label">2 Semester</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item current">
+                        <div class="timeline-circle current"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-label">Viva</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item pending">
+                        <div class="timeline-circle pending"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-label">Final thesis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item pending">
+                        <div class="timeline-circle pending"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-label">Waiting For Degree</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item pending">
+                        <div class="timeline-circle pending"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-label">Completed</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
