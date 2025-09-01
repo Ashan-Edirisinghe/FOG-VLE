@@ -81,7 +81,7 @@
             </div>
 <div class="text-xs-center">
                 <button class="btn btn-primary" name="create_account">Create your account</button>
-                <hr><p><a href="login">Sign in</a></p>                
+                <hr><p><a href="/login">Sign in</a></p>                
             </div>
         </div>
     </div>
