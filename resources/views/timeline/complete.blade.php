@@ -111,7 +111,7 @@
         color: #1e3c72;
         font-weight: 100;
         font-size: 40px;
-        margin: 40px 0px 20px;
+        margin: 10px 0px 10px; /* reduced margin */
         }
 
         #clockdiv, #clockdiv2{
@@ -121,25 +121,28 @@
             font-weight: 100;
             text-align: center;
             font-size: 30px;
+            margin: 0; /* remove default margin */
         }
 
         #clockdiv > div, #clockdiv2 > div{
-            padding: 10px;
+            padding: 6px; /* reduced padding */
             border-radius: 3px;
             background: #4dabf7;
             display: inline-block;
+            margin: 0 2px; /* reduce spacing between blocks */
         }
 
         #clockdiv div > span, #clockdiv2 div > span {
-            padding: 15px;
+            padding: 10px; /* reduced padding */
             border-radius: 3px;
             background: #1e3c72;
             display: inline-block;
         }
 
         .smalltext{
-            padding-top: 5px;
+            padding-top: 2px; /* reduced padding */
             font-size: 16px;
+            margin: 0; /* remove default margin */
         }
     .container-fluid {
         padding: 40px 15px;
