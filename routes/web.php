@@ -14,12 +14,40 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('signup');
-});
-Route::get('/login', function () {
-    return view('login');
-});
-Route::get('/signup', function () {
-    return view('signup');
+    return view('welcome');
 });
 
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/application-form', function () {
+    return view('application-form');
+})->name('application.form');
+
+Route::get('/interview-status', function () {
+    return view('interview-status');
+})->name('interview.status');
+
+Route::get('/payment', function () {
+    return view('payment');
+})->name('payment');
+
+Route::get('/timeline', function () {
+    return view('timeline');
+})->name('timeline');
+
+Route::post('/register', function () {
+    // For now, just redirect back with a success message
+    return redirect('/')->with('success', 'Account created successfully!');
+})->name('register');
+
+Route::post('/login', function () {
+    // For now, just redirect back with a success message
+    return redirect('/login')->with('success', 'Login successful!');
+})->name('login.post');
+
+Route::post('/application-form', function () {
+    // For now, just redirect back with a success message
+    return redirect('/application-form')->with('success', 'Application submitted successfully!');
+})->name('application.submit');
