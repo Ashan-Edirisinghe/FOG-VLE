@@ -391,6 +391,65 @@
 
 @push('scripts')
 <script>
+    const phases = [
+        { main: "Viva", sub: "Viva Time", seconds: 5 },
+        { main: "Semester 1", sub: "Semester 1 Time", seconds: 5 },
+        { main: "Semester 2", sub: "Semester 2 Time", seconds: 5 },
+    ];
+
+    let phaseIndex = 0;
+    let timerInterval = null;
+
+    function showPhase(index) {
+        // Always clear previous interval before starting a new one
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        const phase = phases[index];
+        // Update headings - Fixed the selector
+        let mainHeading = document.querySelector('.message-board h3');
+        let subHeading = document.querySelector('#clockdiv').parentElement.querySelector('h1');
+        if (mainHeading) mainHeading.innerText = phase.main;
+        if (subHeading) subHeading.innerText = phase.sub;
+
+        let remaining = phase.seconds;
+        updateClockDisplay(remaining);
+
+        timerInterval = setInterval(() => {
+            remaining--;
+            updateClockDisplay(remaining);
+            if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                phaseIndex = (phaseIndex + 1) % phases.length; // Loop phases
+                showPhase(phaseIndex);
+            }
+        }, 1000);
+    }
+
+    function updateClockDisplay(sec) {
+        let days = document.querySelector('#clockdiv .days');
+        let hours = document.querySelector('#clockdiv .hours');
+        let minutes = document.querySelector('#clockdiv .minutes');
+        let seconds = document.querySelector('#clockdiv .seconds');
+        
+        if (days) days.innerHTML = 0;
+        if (hours) hours.innerHTML = ('0' + 0).slice(-2);
+        if (minutes) minutes.innerHTML = ('0' + 0).slice(-2);
+        if (seconds) seconds.innerHTML = ('0' + sec).slice(-2);
+    }
+
+    // Start the phase cycle when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait a bit for DOM to fully load
+        setTimeout(() => {
+            showPhase(phaseIndex);
+        }, 100);
+    });
+
+    // Degree Time countdown (unchanged)
     function getTimeRemaining(endtime) {
         var t = Date.parse(endtime) - Date.parse(new Date());
         var seconds = Math.floor((t / 1000) % 60);
@@ -408,6 +467,8 @@
 
     function initializeClock(id, endtime) {
         var clock = document.getElementById(id);
+        if (!clock) return; // Safety check
+        
         var daysSpan = clock.querySelector('.days');
         var hoursSpan = clock.querySelector('.hours');
         var minutesSpan = clock.querySelector('.minutes');
@@ -416,16 +477,13 @@
         function updateClock() {
             var t = getTimeRemaining(endtime);
 
-            daysSpan.innerHTML = t.days;
-            hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-            minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-            secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+            if (daysSpan) daysSpan.innerHTML = t.days;
+            if (hoursSpan) hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+            if (minutesSpan) minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+            if (secondsSpan) secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
             if (t.total <= 0) {
                 clearInterval(timeinterval);
-                if (id === 'clockdiv') {
-                    window.location.href = '/thesis';
-                }
             }
         }
 
@@ -433,13 +491,11 @@
         var timeinterval = setInterval(updateClock, 1000);
     }
 
-    // Example: 30 seconds and 60 seconds from now
-    var deadline1 = new Date(Date.parse(new Date()) + 30 * 1000);
-    var deadline2 = new Date('2027-03-15T10:00:00');
-    initializeClock('clockdiv', deadline1);
+    // Example: 60 seconds from now for Degree Time
+    var deadline2 = new Date(Date.parse(new Date()) + 60 * 1000);
     initializeClock('clockdiv2', deadline2);
-    
-    // Message button functionality
+
+    // Message button functionality (if you use .btn-message)
     document.querySelectorAll('.btn-message').forEach(button => {
         button.addEventListener('click', function() {
             alert('Message button clicked!');

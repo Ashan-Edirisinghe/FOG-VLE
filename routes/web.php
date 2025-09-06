@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('signin');
 });
 Route::get('/login', function () {
     return view('login');
@@ -24,12 +24,20 @@ Route::get('/signup', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('signin');
 })->name('login');
 
 Route::get('/application-form', function () {
     return view('application-form');
 })->name('application.form');
+
+Route::get('/application', function () {
+    return view('application');
+})->name('application');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
 
 Route::get('/interview-status', function () {
     return view('interview-status');
