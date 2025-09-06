@@ -195,7 +195,7 @@
                             <a class="nav-link active" href="/timeline">Timeline</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Welcome</a>
+                            <a class="nav-link" href="/">Sign In</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/profile">User Profile</a>

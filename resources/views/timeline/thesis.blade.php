@@ -55,11 +55,11 @@
         <div class="col-lg-6">
     <!-- Message Board -->
     <div class="message-board">
-        <h3>Congrates degree completed</h3>
+        <h3>Final Thesis</h3>
     </div>
     <div style="display: flex; gap: 40px; justify-content: center;">
         <div>
-            <h1>Countdown Clock</h1>
+            <h1>Thesis Time</h1>
             <div id="clockdiv">
                 <div>
                     <span class="days"></span>
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div>
-            <h1>Countdown Clock 2</h1>
+            <h1>Degree Time</h1>
             <div id="clockdiv2">
                 <div>
                     <span class="days"></span>
@@ -423,6 +423,9 @@
 
             if (t.total <= 0) {
                 clearInterval(timeinterval);
+                if (id === 'clockdiv') {
+                    window.location.href = '/pending';
+                }
             }
         }
 
