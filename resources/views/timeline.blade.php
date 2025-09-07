@@ -144,6 +144,7 @@
             font-size: 16px;
             margin: 0; /* remove default margin */
         }
+
     .container-fluid {
         padding: 40px 15px;
     }
