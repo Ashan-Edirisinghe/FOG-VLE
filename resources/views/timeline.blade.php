@@ -98,16 +98,20 @@
                             <div class="card-header bg-light text-center font-weight-bold">Process Countdown</div>
                             <div class="card-body d-flex justify-content-center align-items-center">
                                 <div class="countdown-item mx-2">
-                                    <div class="countdown-number" id="processYears">03</div>
-                                    <div class="countdown-label">Years</div>
-                                </div>
-                                <div class="countdown-item mx-2">
-                                    <div class="countdown-number" id="processDays">20</div>
+                                    <div class="countdown-number" id="processDays">000</div>
                                     <div class="countdown-label">Days</div>
                                 </div>
                                 <div class="countdown-item mx-2">
-                                    <div class="countdown-number" id="processHours">15</div>
+                                    <div class="countdown-number" id="processHours">00</div>
                                     <div class="countdown-label">Hours</div>
+                                </div>
+                                <div class="countdown-item mx-2">
+                                    <div class="countdown-number" id="processMinutes">00</div>
+                                    <div class="countdown-label">Minutes</div>
+                                </div>
+                                <div class="countdown-item mx-2">
+                                    <div class="countdown-number" id="processSeconds">00</div>
+                                    <div class="countdown-label">Seconds</div>
                                 </div>
                             </div>
                         </div>
@@ -117,16 +121,20 @@
                             <div class="card-header bg-light text-center font-weight-bold">Degree Countdown</div>
                             <div class="card-body d-flex justify-content-center align-items-center">
                                 <div class="countdown-item mx-2">
-                                    <div class="countdown-number" id="totalYears">03</div>
-                                    <div class="countdown-label">Years</div>
-                                </div>
-                                <div class="countdown-item mx-2">
-                                    <div class="countdown-number" id="totalDays">20</div>
+                                    <div class="countdown-number" id="totalDays">000</div>
                                     <div class="countdown-label">Days</div>
                                 </div>
                                 <div class="countdown-item mx-2">
-                                    <div class="countdown-number" id="totalHours">15</div>
+                                    <div class="countdown-number" id="totalHours">00</div>
                                     <div class="countdown-label">Hours</div>
+                                </div>
+                                <div class="countdown-item mx-2">
+                                    <div class="countdown-number" id="totalMinutes">00</div>
+                                    <div class="countdown-label">Minutes</div>
+                                </div>
+                                <div class="countdown-item mx-2">
+                                    <div class="countdown-number" id="totalSeconds">00</div>
+                                    <div class="countdown-label">Seconds</div>
                                 </div>
                             </div>
                         </div>
@@ -272,12 +280,14 @@
             endDate.setFullYear(endDate.getFullYear() + 1); // 1 year from start
             let distance = endDate - now;
             if (distance < 0) distance = 0;
-            const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-            const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('processYears').textContent = String(years).padStart(2, '0');
-            document.getElementById('processDays').textContent = String(days).padStart(2, '0');
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById('processDays').textContent = String(days).padStart(3, '0');
             document.getElementById('processHours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('processMinutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('processSeconds').textContent = String(seconds).padStart(2, '0');
         }
         renderCountdown();
         processCountdownInterval = setInterval(renderCountdown, 1000);
@@ -288,13 +298,17 @@
         const endDate = getFutureDate(4); // 4 years from now
         let distance = endDate - now;
         if (distance < 0) distance = 0;
-        const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-        const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('totalYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('totalDays').textContent = String(days).padStart(2, '0');
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById('totalDays').textContent = String(days).padStart(3, '0');
         document.getElementById('totalHours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('totalMinutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('totalSeconds').textContent = String(seconds).padStart(2, '0');
     }
+    // Update degree countdown every second
+    setInterval(updateDegreeCountdown, 1000);
 
 
     // Always reset process countdown to 1 year from now when a section is selected
