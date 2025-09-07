@@ -80,7 +80,7 @@
             </div>
             </div>
 <div class="text-xs-center">
-<a href="/application" class="btn btn-primary" style="color: #fff;">Create your account</a>
+                <button class="btn btn-primary" name="create_account">Create your account</button>
                 <hr><p><a href="/login">Sign in</a></p>                
             </div>
         </div>
@@ -116,5 +116,5 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>       
 
-<style>html {  position: relative;  min-height: 100%;}body {  /* Margin bottom by footer height */  margin-bottom: 60px;}.footer {  position: absolute;  bottom: 0;  width: 100%;  /* Set the fixed height of the footer here */  height: 60px;  background-color: #f5f5f5;}/* Custom page CSS-------------------------------------------------- *//* Not required for template or sticky footer method. */body > .container {  padding: 60px 15px 0;}.container .text-muted {  margin: 20px 0;}.footer > .container {  padding-right: 15px;  padding-left: 15px;}code {  font-size: 80%;}</style><footer class="footer"><div class="container"><img src="img/logo.png" width="60" height="60"> <small>© 2016 Faculty of Graduate Studies, Sabaragamuwa University of Sri Lanka</small></div></footer>   </body>
+<style>html {  position: relative;  min-height: 100%;}body {  /* Margin bottom by footer height */  margin-bottom: 60px;}.footer {  position: absolute;  bottom: 0;  width: 100%;  /* Set the fixed height of the footer here */  height: 60px;  background-color: #f5f5f5;}/* Custom page CSS-------------------------------------------------- *//* Not required for template or sticky footer method. */body > .container {  padding: 60px 15px 0;}.container .text-muted {  margin: 20px 0;}.footer > .container {  padding-right: 15px;  padding-left: 15px;}code {  font-size: 80%;}</style><footer class="footer"><div class="container"><img src="img/logo.png" width="60" height="60"> <small>Â© 2016 Faculty of Graduate Studies, Sabaragamuwa University of Sri Lanka</small></div></footer>   </body>
 </html>

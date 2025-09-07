@@ -55,11 +55,11 @@
         <div class="col-lg-6">
     <!-- Message Board -->
     <div class="message-board">
-        <h3  id="main-heading">Assigning Supervisors</h3>
+        <h3>Congratulations your degree completed</h3>
     </div>
     <div style="display: flex; gap: 40px; justify-content: center;">
         <div>
-            <h1 id="sub-heading">Assigning</h1>
+            <h1>Result show in</h1>
             <div id="clockdiv">
                 <div>
                     <span class="days"></span>
@@ -144,7 +144,6 @@
             font-size: 16px;
             margin: 0; /* remove default margin */
         }
-
     .container-fluid {
         padding: 40px 15px;
     }
@@ -392,94 +391,6 @@
 
 @push('scripts')
 <script>
-    const phases = [
-        { main: "Assigning Supervices", sub: "Assigning", seconds: 5 },
-        { main: "Semester 1", sub: "Semester 1 Time", seconds: 5 },
-        { main: "Semester 2", sub: "Semester 2 Time", seconds: 5 },
-        { main: "Viva", sub: "Viva Time", seconds: 5 },
-        { main: "Degree is pending", sub: "Pending Time", seconds: 5 },
-        { main: "Congraulations Degree in Comple", sub: "Shows in notice", seconds: 5 },
-    ];
-
-    let phaseIndex = 0;
-    let timerInterval = null;
-
-    function showPhase(index) {
-        // Always clear previous interval before starting a new one
-        if (timerInterval) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-        }
-
-        const phase = phases[index];
-        // Update headings
-        let mainHeading = document.querySelector('.message-board h3');
-        let subHeading = document.querySelector('#clockdiv').parentElement.querySelector('h1');
-        if (mainHeading) mainHeading.innerText = phase.main;
-        if (subHeading) subHeading.innerText = phase.sub;
-
-        let remaining = phase.seconds;
-        
-        // Reset and display the timer immediately
-        updateClockDisplay(remaining);
-
-        timerInterval = setInterval(() => {
-            remaining--;
-            updateClockDisplay(remaining);
-            if (remaining <= 0) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                
-                // Check if we've reached the end of phases array AFTER countdown finishes
-                if (phaseIndex + 1 >= phases.length) {
-                    // Stop here - phases completed
-                    console.log('All phases completed!');
-                    // Optionally, you can hide the countdown or show a completion message
-                    updateClockDisplay(0);
-                    return;
-                }
-                
-                phaseIndex = phaseIndex + 1; // Move to next phase (no looping)
-                
-                // Add a small delay before showing next phase to ensure clean reset
-                setTimeout(() => {
-                    showPhase(phaseIndex);
-                }, 100);
-            }
-        }, 1000);
-    }
-
-    function updateClockDisplay(sec) {
-        // Force reset all values first
-        let days = document.querySelector('#clockdiv .days');
-        let hours = document.querySelector('#clockdiv .hours');
-        let minutes = document.querySelector('#clockdiv .minutes');
-        let seconds = document.querySelector('#clockdiv .seconds');
-        
-        // Reset display with proper formatting
-        if (days) {
-            days.innerHTML = 0;
-        }
-        if (hours) {
-            hours.innerHTML = '00';
-        }
-        if (minutes) {
-            minutes.innerHTML = '00';
-        }
-        if (seconds) {
-            seconds.innerHTML = sec < 10 ? '0' + sec : sec.toString();
-        }
-    }
-
-    // Start the phase cycle when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-        // Wait a bit for DOM to fully load
-        setTimeout(() => {
-            showPhase(phaseIndex);
-        }, 100);
-    });
-
-    // Degree Time countdown (unchanged)
     function getTimeRemaining(endtime) {
         var t = Date.parse(endtime) - Date.parse(new Date());
         var seconds = Math.floor((t / 1000) % 60);
@@ -497,8 +408,6 @@
 
     function initializeClock(id, endtime) {
         var clock = document.getElementById(id);
-        if (!clock) return; // Safety check
-        
         var daysSpan = clock.querySelector('.days');
         var hoursSpan = clock.querySelector('.hours');
         var minutesSpan = clock.querySelector('.minutes');
@@ -507,13 +416,16 @@
         function updateClock() {
             var t = getTimeRemaining(endtime);
 
-            if (daysSpan) daysSpan.innerHTML = t.days;
-            if (hoursSpan) hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-            if (minutesSpan) minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-            if (secondsSpan) secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+            daysSpan.innerHTML = t.days;
+            hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+            minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+            secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
             if (t.total <= 0) {
                 clearInterval(timeinterval);
+                if (id === 'clockdiv') {
+                    window.location.href = '/pending';
+                }
             }
         }
 
@@ -521,11 +433,13 @@
         var timeinterval = setInterval(updateClock, 1000);
     }
 
-    // Example: 60 seconds from now for Degree Time
+    // Example: 30 seconds and 60 seconds from now
+    var deadline1 = new Date(Date.parse(new Date()) + 30 * 1000);
     var deadline2 = new Date('2027-03-15T10:00:00');
+    initializeClock('clockdiv', deadline1);
     initializeClock('clockdiv2', deadline2);
-
-    // Message button functionality (if you use .btn-message)
+    
+    // Message button functionality
     document.querySelectorAll('.btn-message').forEach(button => {
         button.addEventListener('click', function() {
             alert('Message button clicked!');
