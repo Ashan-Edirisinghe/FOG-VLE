@@ -263,18 +263,24 @@
         return new Date(now.getFullYear() + years, now.getMonth(), now.getDate(), 23, 59, 59);
     }
 
+    let processCountdownInterval = null;
     function updateProcessCountdown(startDate) {
-        const now = new Date();
-        const endDate = new Date(startDate);
-        endDate.setFullYear(endDate.getFullYear() + 1); // 1 year from start
-        let distance = endDate - now;
-        if (distance < 0) distance = 0;
-        const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-        const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('processYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('processDays').textContent = String(days).padStart(2, '0');
-        document.getElementById('processHours').textContent = String(hours).padStart(2, '0');
+        if (processCountdownInterval) clearInterval(processCountdownInterval);
+        function renderCountdown() {
+            const now = new Date();
+            const endDate = new Date(startDate);
+            endDate.setFullYear(endDate.getFullYear() + 1); // 1 year from start
+            let distance = endDate - now;
+            if (distance < 0) distance = 0;
+            const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+            const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('processYears').textContent = String(years).padStart(2, '0');
+            document.getElementById('processDays').textContent = String(days).padStart(2, '0');
+            document.getElementById('processHours').textContent = String(hours).padStart(2, '0');
+        }
+        renderCountdown();
+        processCountdownInterval = setInterval(renderCountdown, 1000);
     }
 
     function updateDegreeCountdown() {
