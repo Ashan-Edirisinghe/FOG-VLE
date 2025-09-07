@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="text-xs-center">
-                                <hr><p><a href="/timeline">Sign in</a></p> 
+                                <hr><p><a href="/timeline" class="btn btn-primary" style="color: #fff;">Sign in</a></p> 
                                 <hr>
                             </div>
                             <div class="col-md-6"><p class="small text-xs-left"><a href="#" data-toggle="modal" data-target="#myModal">Forgot password?</a></p></div>
