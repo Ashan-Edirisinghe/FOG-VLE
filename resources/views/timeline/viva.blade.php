@@ -55,11 +55,11 @@
         <div class="col-lg-6">
     <!-- Message Board -->
     <div class="message-board">
-        <h3  id="main-heading">Assigning Supervisors</h3>
+        <h3>Viva</h3>
     </div>
     <div style="display: flex; gap: 40px; justify-content: center;">
         <div>
-            <h1 id="sub-heading">Assigning</h1>
+            <h1>Viva Time</h1>
             <div id="clockdiv">
                 <div>
                     <span class="days"></span>
@@ -144,7 +144,6 @@
             font-size: 16px;
             margin: 0; /* remove default margin */
         }
-
     .container-fluid {
         padding: 40px 15px;
     }
@@ -393,12 +392,9 @@
 @push('scripts')
 <script>
     const phases = [
-        { main: "Assigning Supervices", sub: "Assigning", seconds: 5 },
+        { main: "Viva", sub: "Viva Time", seconds: 5 },
         { main: "Semester 1", sub: "Semester 1 Time", seconds: 5 },
         { main: "Semester 2", sub: "Semester 2 Time", seconds: 5 },
-        { main: "Viva", sub: "Viva Time", seconds: 5 },
-        { main: "Degree is pending", sub: "Pending Time", seconds: 5 },
-        { main: "Congraulations Degree in Comple", sub: "Shows in notice", seconds: 5 },
     ];
 
     let phaseIndex = 0;
@@ -412,15 +408,13 @@
         }
 
         const phase = phases[index];
-        // Update headings
+        // Update headings - Fixed the selector
         let mainHeading = document.querySelector('.message-board h3');
         let subHeading = document.querySelector('#clockdiv').parentElement.querySelector('h1');
         if (mainHeading) mainHeading.innerText = phase.main;
         if (subHeading) subHeading.innerText = phase.sub;
 
         let remaining = phase.seconds;
-        
-        // Reset and display the timer immediately
         updateClockDisplay(remaining);
 
         timerInterval = setInterval(() => {
@@ -429,46 +423,22 @@
             if (remaining <= 0) {
                 clearInterval(timerInterval);
                 timerInterval = null;
-                
-                // Check if we've reached the end of phases array AFTER countdown finishes
-                if (phaseIndex + 1 >= phases.length) {
-                    // Stop here - phases completed
-                    console.log('All phases completed!');
-                    // Optionally, you can hide the countdown or show a completion message
-                    updateClockDisplay(0);
-                    return;
-                }
-                
-                phaseIndex = phaseIndex + 1; // Move to next phase (no looping)
-                
-                // Add a small delay before showing next phase to ensure clean reset
-                setTimeout(() => {
-                    showPhase(phaseIndex);
-                }, 100);
+                phaseIndex = (phaseIndex + 1) % phases.length; // Loop phases
+                showPhase(phaseIndex);
             }
         }, 1000);
     }
 
     function updateClockDisplay(sec) {
-        // Force reset all values first
         let days = document.querySelector('#clockdiv .days');
         let hours = document.querySelector('#clockdiv .hours');
         let minutes = document.querySelector('#clockdiv .minutes');
         let seconds = document.querySelector('#clockdiv .seconds');
         
-        // Reset display with proper formatting
-        if (days) {
-            days.innerHTML = 0;
-        }
-        if (hours) {
-            hours.innerHTML = '00';
-        }
-        if (minutes) {
-            minutes.innerHTML = '00';
-        }
-        if (seconds) {
-            seconds.innerHTML = sec < 10 ? '0' + sec : sec.toString();
-        }
+        if (days) days.innerHTML = 0;
+        if (hours) hours.innerHTML = ('0' + 0).slice(-2);
+        if (minutes) minutes.innerHTML = ('0' + 0).slice(-2);
+        if (seconds) seconds.innerHTML = ('0' + sec).slice(-2);
     }
 
     // Start the phase cycle when DOM is ready
@@ -522,7 +492,7 @@
     }
 
     // Example: 60 seconds from now for Degree Time
-    var deadline2 = new Date('2027-03-15T10:00:00');
+    var deadline2 = new Date(Date.parse(new Date()) + 60 * 1000);
     initializeClock('clockdiv2', deadline2);
 
     // Message button functionality (if you use .btn-message)
