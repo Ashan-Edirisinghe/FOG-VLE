@@ -17,111 +17,133 @@
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:20.8%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/semester1'">
                         1 Semester
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:35.7%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/semester2'">
                         2 Semester
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:50.6%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/viva'">
                         Viva
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:65.5%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/thesis'">
                         Final thesis
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:80.4%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/pending'">
                         Degree Pending
                     </button>
                     <button class="btn btn-primary"
                         style="position:absolute; top:95.3%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/timeline'">
+                        onclick="window.location.href='/complete'">
                         Completed
                     </button>
                     <img src="{{ asset('img/timeline.png') }}" alt="Timeline"
-                        style="max-width:100%; max-height:500px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+                        style="max-width:100%; max-height:500px; border-radius:12px;">
                 </div>
             </div>
         </div>
         
         <!-- Right Side - Message Board and Countdown -->
         <div class="col-lg-6">
-            <!-- Message Board -->
-            <div class="message-board">
-                <h3>message board</h3>
-                
-                <div class="message-item">
-                    <div class="message-header">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Title</span>
-                        <button class="btn-close">×</button>
-                    </div>
-                    <div class="message-body">Body text.</div>
-                    <button class="btn-message">Button</button>
+    <!-- Message Board -->
+    <div class="message-board">
+        <h3  id="main-heading">Assigning Supervisors</h3>
+    </div>
+    <div style="display: flex; gap: 40px; justify-content: center;">
+        <div>
+            <h1 id="sub-heading">Assigning</h1>
+            <div id="clockdiv">
+                <div>
+                    <span class="days"></span>
+                    <div class="smalltext">Days</div>
                 </div>
-                
-                <div class="message-item">
-                    <div class="message-header">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Title</span>
-                        <button class="btn-close">×</button>
-                    </div>
-                    <div class="message-body">Body text.</div>
-                    <button class="btn-message">Button</button>
+                <div>
+                    <span class="hours"></span>
+                    <div class="smalltext">Hours</div>
+                </div>
+                <div>
+                    <span class="minutes"></span>
+                    <div class="smalltext">Minutes</div>
+                </div>
+                <div>
+                    <span class="seconds"></span>
+                    <div class="smalltext">Seconds</div>
                 </div>
             </div>
-            
-            <!-- Countdown Timers -->
-            <div class="countdown-section">
-                <div class="countdown-box">
-                    <h4>Process Countdown</h4>
-                    <div class="countdown-display">
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processYears">03</span>
-                            <span class="countdown-label">Years</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processDays">20</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processHours">15</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                    </div>
+        </div>
+        <div>
+            <h1>Degree Time</h1>
+            <div id="clockdiv2">
+                <div>
+                    <span class="days"></span>
+                    <div class="smalltext">Days</div>
                 </div>
-                
-                <div class="countdown-box">
-                    <h4>Total Countdown</h4>
-                    <div class="countdown-display">
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalYears">03</span>
-                            <span class="countdown-label">Years</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalDays">20</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalHours">15</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                    </div>
+                <div>
+                    <span class="hours"></span>
+                    <div class="smalltext">Hours</div>
+                </div>
+                <div>
+                    <span class="minutes"></span>
+                    <div class="smalltext">Minutes</div>
+                </div>
+                <div>
+                    <span class="seconds"></span>
+                    <div class="smalltext">Seconds</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+    </div>
+</div>
 
 @push('styles')
 <style>
+    h1{
+        color: #1e3c72;
+        font-weight: 100;
+        font-size: 40px;
+        margin: 10px 0px 10px; /* reduced margin */
+        }
+
+        #clockdiv, #clockdiv2{
+            font-family: sans-serif;
+            color: #fff;
+            display: inline-block;
+            font-weight: 100;
+            text-align: center;
+            font-size: 30px;
+            margin: 0; /* remove default margin */
+        }
+
+        #clockdiv > div, #clockdiv2 > div{
+            padding: 6px; /* reduced padding */
+            border-radius: 3px;
+            background: #4dabf7;
+            display: inline-block;
+            margin: 0 2px; /* reduce spacing between blocks */
+        }
+
+        #clockdiv div > span, #clockdiv2 div > span {
+            padding: 10px; /* reduced padding */
+            border-radius: 3px;
+            background: #1e3c72;
+            display: inline-block;
+        }
+
+        .smalltext{
+            padding-top: 2px; /* reduced padding */
+            font-size: 16px;
+            margin: 0; /* remove default margin */
+        }
     .container-fluid {
         padding: 40px 15px;
     }
@@ -369,40 +391,140 @@
 
 @push('scripts')
 <script>
-    // Countdown timer functionality
-    function updateCountdown() {
-        // You can set your target date here
-        const targetDate = new Date('2028-12-31 23:59:59').getTime();
-        const now = new Date().getTime();
-        const distance = targetDate - now;
+    const phases = [
+        { main: "Assigning Supervices", sub: "Assigning", seconds: 5 },
+        { main: "Semester 1", sub: "Semester 1 Time", seconds: 5 },
+        { main: "Semester 2", sub: "Semester 2 Time", seconds: 5 },
+        { main: "Viva", sub: "Viva Time", seconds: 5 },
+        { main: "Degree is pending", sub: "Pending Time", seconds: 5 },
+        { main: "Congraulations Degree in Comple", sub: "Shows in notice", seconds: 5 },
+    ];
+
+    let phaseIndex = 0;
+    let timerInterval = null;
+
+    function showPhase(index) {
+        // Always clear previous interval before starting a new one
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        const phase = phases[index];
+        // Update headings
+        let mainHeading = document.querySelector('.message-board h3');
+        let subHeading = document.querySelector('#clockdiv').parentElement.querySelector('h1');
+        if (mainHeading) mainHeading.innerText = phase.main;
+        if (subHeading) subHeading.innerText = phase.sub;
+
+        let remaining = phase.seconds;
         
-        const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-        const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        
-        // Update Process Countdown
-        document.getElementById('processYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('processDays').textContent = String(days).padStart(2, '0');
-        document.getElementById('processHours').textContent = String(hours).padStart(2, '0');
-        
-        // Update Total Countdown (same for demo)
-        document.getElementById('totalYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('totalDays').textContent = String(days).padStart(2, '0');
-        document.getElementById('totalHours').textContent = String(hours).padStart(2, '0');
+        // Reset and display the timer immediately
+        updateClockDisplay(remaining);
+
+        timerInterval = setInterval(() => {
+            remaining--;
+            updateClockDisplay(remaining);
+            if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                
+                // Check if we've reached the end of phases array AFTER countdown finishes
+                if (phaseIndex + 1 >= phases.length) {
+                    // Stop here - phases completed
+                    console.log('All phases completed!');
+                    // Optionally, you can hide the countdown or show a completion message
+                    updateClockDisplay(0);
+                    return;
+                }
+                
+                phaseIndex = phaseIndex + 1; // Move to next phase (no looping)
+                
+                // Add a small delay before showing next phase to ensure clean reset
+                setTimeout(() => {
+                    showPhase(phaseIndex);
+                }, 100);
+            }
+        }, 1000);
     }
-    
-    // Update countdown every hour
-    updateCountdown();
-    setInterval(updateCountdown, 3600000);
-    
-    // Message close functionality
-    document.querySelectorAll('.btn-close').forEach(button => {
-        button.addEventListener('click', function() {
-            this.closest('.message-item').remove();
-        });
+
+    function updateClockDisplay(sec) {
+        // Force reset all values first
+        let days = document.querySelector('#clockdiv .days');
+        let hours = document.querySelector('#clockdiv .hours');
+        let minutes = document.querySelector('#clockdiv .minutes');
+        let seconds = document.querySelector('#clockdiv .seconds');
+        
+        // Reset display with proper formatting
+        if (days) {
+            days.innerHTML = 0;
+        }
+        if (hours) {
+            hours.innerHTML = '00';
+        }
+        if (minutes) {
+            minutes.innerHTML = '00';
+        }
+        if (seconds) {
+            seconds.innerHTML = sec < 10 ? '0' + sec : sec.toString();
+        }
+    }
+
+    // Start the phase cycle when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait a bit for DOM to fully load
+        setTimeout(() => {
+            showPhase(phaseIndex);
+        }, 100);
     });
-    
-    // Message button functionality
+
+    // Degree Time countdown (unchanged)
+    function getTimeRemaining(endtime) {
+        var t = Date.parse(endtime) - Date.parse(new Date());
+        var seconds = Math.floor((t / 1000) % 60);
+        var minutes = Math.floor((t / 1000 / 60) % 60);
+        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        var days = Math.floor(t / (1000 * 60 * 60 * 24));
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function initializeClock(id, endtime) {
+        var clock = document.getElementById(id);
+        if (!clock) return; // Safety check
+        
+        var daysSpan = clock.querySelector('.days');
+        var hoursSpan = clock.querySelector('.hours');
+        var minutesSpan = clock.querySelector('.minutes');
+        var secondsSpan = clock.querySelector('.seconds');
+
+        function updateClock() {
+            var t = getTimeRemaining(endtime);
+
+            if (daysSpan) daysSpan.innerHTML = t.days;
+            if (hoursSpan) hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+            if (minutesSpan) minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+            if (secondsSpan) secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+            if (t.total <= 0) {
+                clearInterval(timeinterval);
+            }
+        }
+
+        updateClock();
+        var timeinterval = setInterval(updateClock, 1000);
+    }
+
+    // Example: 60 seconds from now for Degree Time
+    var deadline2 = new Date('2027-03-15T10:00:00');
+    initializeClock('clockdiv2', deadline2);
+
+    // Message button functionality (if you use .btn-message)
     document.querySelectorAll('.btn-message').forEach(button => {
         button.addEventListener('click', function() {
             alert('Message button clicked!');

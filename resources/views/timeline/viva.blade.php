@@ -46,23 +46,104 @@
                         Completed
                     </button>
                     <img src="{{ asset('img/timeline.png') }}" alt="Timeline"
-                        style="max-width:100%; max-height:500px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+                        style="max-width:100%; max-height:500px; border-radius:12px;">
                 </div>
             </div>
         </div>
         
         <!-- Right Side - Message Board and Countdown -->
         <div class="col-lg-6">
-            <!-- Message Board -->
-            <div class="message-board">
-                <h3>Viva</h3>
+    <!-- Message Board -->
+    <div class="message-board">
+        <h3>Viva</h3>
+    </div>
+    <div style="display: flex; gap: 40px; justify-content: center;">
+        <div>
+            <h1>Viva Time</h1>
+            <div id="clockdiv">
+                <div>
+                    <span class="days"></span>
+                    <div class="smalltext">Days</div>
+                </div>
+                <div>
+                    <span class="hours"></span>
+                    <div class="smalltext">Hours</div>
+                </div>
+                <div>
+                    <span class="minutes"></span>
+                    <div class="smalltext">Minutes</div>
+                </div>
+                <div>
+                    <span class="seconds"></span>
+                    <div class="smalltext">Seconds</div>
+                </div>
             </div>
         </div>
+        <div>
+            <h1>Degree Time</h1>
+            <div id="clockdiv2">
+                <div>
+                    <span class="days"></span>
+                    <div class="smalltext">Days</div>
+                </div>
+                <div>
+                    <span class="hours"></span>
+                    <div class="smalltext">Hours</div>
+                </div>
+                <div>
+                    <span class="minutes"></span>
+                    <div class="smalltext">Minutes</div>
+                </div>
+                <div>
+                    <span class="seconds"></span>
+                    <div class="smalltext">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
 @push('styles')
 <style>
+    h1{
+        color: #1e3c72;
+        font-weight: 100;
+        font-size: 40px;
+        margin: 10px 0px 10px; /* reduced margin */
+        }
+
+        #clockdiv, #clockdiv2{
+            font-family: sans-serif;
+            color: #fff;
+            display: inline-block;
+            font-weight: 100;
+            text-align: center;
+            font-size: 30px;
+            margin: 0; /* remove default margin */
+        }
+
+        #clockdiv > div, #clockdiv2 > div{
+            padding: 6px; /* reduced padding */
+            border-radius: 3px;
+            background: #4dabf7;
+            display: inline-block;
+            margin: 0 2px; /* reduce spacing between blocks */
+        }
+
+        #clockdiv div > span, #clockdiv2 div > span {
+            padding: 10px; /* reduced padding */
+            border-radius: 3px;
+            background: #1e3c72;
+            display: inline-block;
+        }
+
+        .smalltext{
+            padding-top: 2px; /* reduced padding */
+            font-size: 16px;
+            margin: 0; /* remove default margin */
+        }
     .container-fluid {
         padding: 40px 15px;
     }
@@ -310,40 +391,111 @@
 
 @push('scripts')
 <script>
-    // Countdown timer functionality
-    function updateCountdown() {
-        // You can set your target date here
-        const targetDate = new Date('2028-12-31 23:59:59').getTime();
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        
-        const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-        const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        
-        // Update Process Countdown
-        document.getElementById('processYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('processDays').textContent = String(days).padStart(2, '0');
-        document.getElementById('processHours').textContent = String(hours).padStart(2, '0');
-        
-        // Update Total Countdown (same for demo)
-        document.getElementById('totalYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('totalDays').textContent = String(days).padStart(2, '0');
-        document.getElementById('totalHours').textContent = String(hours).padStart(2, '0');
+    const phases = [
+        { main: "Viva", sub: "Viva Time", seconds: 5 },
+        { main: "Semester 1", sub: "Semester 1 Time", seconds: 5 },
+        { main: "Semester 2", sub: "Semester 2 Time", seconds: 5 },
+    ];
+
+    let phaseIndex = 0;
+    let timerInterval = null;
+
+    function showPhase(index) {
+        // Always clear previous interval before starting a new one
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        const phase = phases[index];
+        // Update headings - Fixed the selector
+        let mainHeading = document.querySelector('.message-board h3');
+        let subHeading = document.querySelector('#clockdiv').parentElement.querySelector('h1');
+        if (mainHeading) mainHeading.innerText = phase.main;
+        if (subHeading) subHeading.innerText = phase.sub;
+
+        let remaining = phase.seconds;
+        updateClockDisplay(remaining);
+
+        timerInterval = setInterval(() => {
+            remaining--;
+            updateClockDisplay(remaining);
+            if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                phaseIndex = (phaseIndex + 1) % phases.length; // Loop phases
+                showPhase(phaseIndex);
+            }
+        }, 1000);
     }
-    
-    // Update countdown every hour
-    updateCountdown();
-    setInterval(updateCountdown, 3600000);
-    
-    // Message close functionality
-    document.querySelectorAll('.btn-close').forEach(button => {
-        button.addEventListener('click', function() {
-            this.closest('.message-item').remove();
-        });
+
+    function updateClockDisplay(sec) {
+        let days = document.querySelector('#clockdiv .days');
+        let hours = document.querySelector('#clockdiv .hours');
+        let minutes = document.querySelector('#clockdiv .minutes');
+        let seconds = document.querySelector('#clockdiv .seconds');
+        
+        if (days) days.innerHTML = 0;
+        if (hours) hours.innerHTML = ('0' + 0).slice(-2);
+        if (minutes) minutes.innerHTML = ('0' + 0).slice(-2);
+        if (seconds) seconds.innerHTML = ('0' + sec).slice(-2);
+    }
+
+    // Start the phase cycle when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait a bit for DOM to fully load
+        setTimeout(() => {
+            showPhase(phaseIndex);
+        }, 100);
     });
-    
-    // Message button functionality
+
+    // Degree Time countdown (unchanged)
+    function getTimeRemaining(endtime) {
+        var t = Date.parse(endtime) - Date.parse(new Date());
+        var seconds = Math.floor((t / 1000) % 60);
+        var minutes = Math.floor((t / 1000 / 60) % 60);
+        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        var days = Math.floor(t / (1000 * 60 * 60 * 24));
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function initializeClock(id, endtime) {
+        var clock = document.getElementById(id);
+        if (!clock) return; // Safety check
+        
+        var daysSpan = clock.querySelector('.days');
+        var hoursSpan = clock.querySelector('.hours');
+        var minutesSpan = clock.querySelector('.minutes');
+        var secondsSpan = clock.querySelector('.seconds');
+
+        function updateClock() {
+            var t = getTimeRemaining(endtime);
+
+            if (daysSpan) daysSpan.innerHTML = t.days;
+            if (hoursSpan) hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+            if (minutesSpan) minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+            if (secondsSpan) secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+            if (t.total <= 0) {
+                clearInterval(timeinterval);
+            }
+        }
+
+        updateClock();
+        var timeinterval = setInterval(updateClock, 1000);
+    }
+
+    // Example: 60 seconds from now for Degree Time
+    var deadline2 = new Date(Date.parse(new Date()) + 60 * 1000);
+    initializeClock('clockdiv2', deadline2);
+
+    // Message button functionality (if you use .btn-message)
     document.querySelectorAll('.btn-message').forEach(button => {
         button.addEventListener('click', function() {
             alert('Message button clicked!');

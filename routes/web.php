@@ -14,16 +14,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('signin');
+});
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/signup', function () {
+    return view('signup');
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('signin');
 })->name('login');
 
 Route::get('/application-form', function () {
     return view('application-form');
 })->name('application.form');
+
+Route::get('/application', function () {
+    return view('application');
+})->name('application');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
 
 Route::get('/interview-status', function () {
     return view('interview-status');
@@ -36,41 +50,6 @@ Route::get('/payment', function () {
 Route::get('/timeline', function () {
     return view('timeline');
 })->name('timeline');
-
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-
-Route::get('/supervisors', function () {
-    return view('timeline.supervisors');
-})->name('supervisors');
-
-Route::get('/semester1', function () {
-    return view('timeline.semester1');
-})->name('semester1');
-
-Route::get('/semester2', function () {
-    return view('timeline.semester2');
-})->name('semester2');
-
-Route::get('/viva', function () {
-    return view('timeline.viva');
-})->name('viva');
-
-Route::get('/thesis', function () {
-    return view('timeline.thesis');
-})->name('thesis');
-
-Route::get('/pending', function () {
-    return view('timeline.pending');
-})->name('pending');
-
-Route::get('/complete', function () {
-    return view('timeline.complete');
-})->name('complete');
-
-
-
 
 Route::post('/register', function () {
     // For now, just redirect back with a success message
