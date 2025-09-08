@@ -195,7 +195,7 @@
                             <a class="nav-link {{ request()->routeIs('timeline') ? 'active' : '' }}" href="{{ route('timeline') }}">Timeline</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Welcome</a>
+                            <a class="nav-link" href="/profile">User Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>

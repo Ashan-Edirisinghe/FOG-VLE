@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('title', 'Profile - Graduate Studies')
 
 @section('content')
@@ -79,11 +80,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div
 </div>
 
 @push('styles')
-<style>
+<style
 	.countdown-number {
 		font-size: 2.2rem;
 		font-weight: bold;

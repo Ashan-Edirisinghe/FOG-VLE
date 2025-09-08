@@ -144,6 +144,8 @@
         </div>
     </div>
 </div>
+    </div>
+</div>
 
 @push('styles')
 <style>

@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ use Illuminate\Support\Carbon;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('signin');
 });
 
 Route::get('/login', function () {
@@ -25,6 +26,44 @@ Route::get('/login', function () {
 Route::get('/application-form', function () {
     return view('application-form');
 })->name('application.form');
+
+Route::get('/interview-status', function () {
+    return view('interview-status');
+})->name('interview.status');
+
+Route::get('/payment', function () {
+    return view('payment');
+})->name('payment');
+
+Route::get('/timeline', function () {
+    return view('timeline');
+})->name('timeline');
+
+Route::post('/register', function () {
+    // For now, just redirect back with a success message
+    return redirect('/')->with('success', 'Account created successfully!');
+})->name('register');
+
+Route::post('/login', function () {
+    // For now, just redirect back with a success message
+    return redirect('/login')->with('success', 'Login successful!');
+})->name('login.post');
+
+Route::get('/login', function () {
+    return view('signin');
+})->name('login');
+
+Route::get('/application-form', function () {
+    return view('application-form');
+})->name('application.form');
+
+Route::get('/application', function () {
+    return view('application');
+})->name('application');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
 
 Route::get('/interview-status', function () {
     return view('interview-status');
