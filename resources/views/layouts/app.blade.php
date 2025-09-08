@@ -180,22 +180,25 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/application-form">application-form</a>
+                            <a class="nav-link {{ request()->routeIs('application.form') ? 'active' : '' }}" href="{{ route('application.form') }}">application-form</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/interview-status">interview-status</a>
+                            <a class="nav-link {{ request()->routeIs('interview.status') ? 'active' : '' }}" href="{{ route('interview.status') }}">interview-status</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">login</a>
+                            <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/payment">payment</a>
+                            <a class="nav-link {{ request()->routeIs('payment') ? 'active' : '' }}" href="{{ route('payment') }}">payment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/timeline">Timeline</a>
+                            <a class="nav-link {{ request()->routeIs('timeline') ? 'active' : '' }}" href="{{ route('timeline') }}">Timeline</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">Welcome</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
                         </li>
                     </ul>
                 </div>
