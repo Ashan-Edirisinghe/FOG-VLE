@@ -2,6 +2,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,3 +91,25 @@ Route::post('/application-form', function () {
     // For now, just redirect back with a success message
     return redirect('/application-form')->with('success', 'Application submitted successfully!');
 })->name('application.submit');
+
+//Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+
+Route::get('/profile', function () {
+    $user = (object)[
+        'name' => 'Test User',
+        'full_name' => 'Test User',
+        'email' => 'test@example.com',
+        'nic' => '123456789V',
+        'telephone' => '0712345678',
+        'undergraduate_degree' => 'BSc in Computer Science',
+        'university' => 'Sabaragamuwa University',
+        'year' => '2022',
+        'field' => 'Computer Science',
+        'gpa_class' => 'First Class',
+        'intended_degree' => 'MSc in Data Science',
+        'discipline_area' => 'Artificial Intelligence',
+        'degree_start_date' => Carbon::now()->subMonths(2),
+    ];
+    return view('profile', compact('user'));
+})->name('profile');
+
