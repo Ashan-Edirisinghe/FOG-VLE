@@ -454,6 +454,7 @@
             name: "Assigning Supervisors", 
             title: "Assigning Supervisors",
             status: "Due",
+            duration: 30, // 30 days
             messages: [
                 {
                     id: "supervisor-assignment",
@@ -467,6 +468,7 @@
             name: "1 Semester", 
             title: "First Semester",
             status: "In Progress",
+            duration: 120, // 4 months
             messages: [
                 {
                     id: "semester1-enrollment",
@@ -480,6 +482,7 @@
             name: "2 Semester", 
             title: "Second Semester",
             status: "Upcoming",
+            duration: 120, // 4 months
             messages: [
                 {
                     id: "semester2-prep",
@@ -493,6 +496,7 @@
             name: "Viva", 
             title: "Viva Voce",
             status: "Due",
+            duration: 60, // 2 months
             messages: [
                 {
                     id: "payment-slip",
@@ -512,6 +516,7 @@
             name: "Final thesis", 
             title: "Final Thesis Submission",
             status: "Pending",
+            duration: 90, // 3 months
             messages: [
                 {
                     id: "thesis-submission",
@@ -525,6 +530,7 @@
             name: "Waiting For Degree", 
             title: "Degree Processing",
             status: "Processing",
+            duration: 60, // 2 months
             messages: [
                 {
                     id: "degree-processing",
@@ -538,6 +544,7 @@
             name: "Completed", 
             title: "Congratulations!",
             status: "Completed",
+            duration: 0, // No duration for completed phase
             messages: [
                 {
                     id: "completion",
@@ -549,11 +556,44 @@
         }
     ];
 
-    let currentPhase = 3; // Default to Viva phase
+    let currentPhase = 0; // Start with first phase
+    let processTimer = null;
 
     function selectPhase(phaseIndex) {
         currentPhase = phaseIndex;
         updateDisplay();
+        startProcessCountdown();
+    }
+
+    function nextPhase() {
+        if (currentPhase < phases.length - 1) {
+            currentPhase++;
+            updateDisplay();
+            startProcessCountdown();
+        }
+    }
+
+    function startProcessCountdown() {
+        // Clear existing timer
+        if (processTimer) {
+            clearInterval(processTimer);
+        }
+
+        const phase = phases[currentPhase];
+        if (phase.duration > 0) {
+            // Calculate deadline for current phase
+            const processDeadline = new Date(Date.now() + phase.duration * 24 * 60 * 60 * 1000);
+            
+            // Update process countdown title
+            document.getElementById('process-countdown-title').textContent = `${phase.title} Countdown`;
+            
+            // Initialize countdown with auto-advance
+            initializeClock('clockdiv', processDeadline, true);
+        } else {
+            // For completed phase, show zero countdown
+            document.getElementById('process-countdown-title').textContent = 'Process Completed';
+            updateClockDisplay('clockdiv', { days: 0, hours: 0, minutes: 0, seconds: 0 });
+        }
     }
 
     function updateDisplay() {
@@ -632,7 +672,7 @@
         };
     }
 
-    function initializeClock(id, endtime) {
+    function updateClockDisplay(id, timeObj) {
         var clock = document.getElementById(id);
         if (!clock) return;
         
@@ -641,32 +681,52 @@
         var minutesSpan = clock.querySelector('.minutes');
         var secondsSpan = clock.querySelector('.seconds');
 
+        if (daysSpan) daysSpan.innerHTML = timeObj.days;
+        if (hoursSpan) hoursSpan.innerHTML = ('0' + timeObj.hours).slice(-2);
+        if (minutesSpan) minutesSpan.innerHTML = ('0' + timeObj.minutes).slice(-2);
+        if (secondsSpan) secondsSpan.innerHTML = ('0' + timeObj.seconds).slice(-2);
+    }
+
+    function initializeClock(id, endtime, autoAdvance = false) {
+        var clock = document.getElementById(id);
+        if (!clock) return;
+
         function updateClock() {
             var t = getTimeRemaining(endtime);
-
-            if (daysSpan) daysSpan.innerHTML = t.days;
-            if (hoursSpan) hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-            if (minutesSpan) minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-            if (secondsSpan) secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+            updateClockDisplay(id, t);
 
             if (t.total <= 0) {
                 clearInterval(timeinterval);
+                updateClockDisplay(id, { days: 0, hours: 0, minutes: 0, seconds: 0 });
+                
+                // Auto-advance to next phase if enabled
+                if (autoAdvance) {
+                    setTimeout(() => {
+                        nextPhase();
+                    }, 1000);
+                }
             }
         }
 
         updateClock();
         var timeinterval = setInterval(updateClock, 1000);
+        
+        // Store timer reference if it's the process timer
+        if (id === 'clockdiv' && autoAdvance) {
+            processTimer = timeinterval;
+        }
+        
+        return timeinterval;
     }
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
         updateDisplay();
+        startProcessCountdown();
         
-        // Set countdown timers
-        var processDeadline = new Date(Date.now() + 5 * 1000); // 364 days from now
-        var degreeDeadline = new Date('2027-03-15T10:00:00');
-        
-        initializeClock('clockdiv', processDeadline);
+        // Set degree countdown (total program duration)
+        var totalDuration = phases.reduce((sum, phase) => sum + phase.duration, 0);
+        var degreeDeadline = new Date(Date.now() + totalDuration * 24 * 60 * 60 * 1000);
         initializeClock('clockdiv2', degreeDeadline);
     });
 </script>
