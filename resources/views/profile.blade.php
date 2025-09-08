@@ -13,48 +13,48 @@
 						<i class="fas fa-user"></i>
 					</div>
 					<div>
-						<h2 class="mb-0">{{ $user->full_name }}</h2>
-						<div class="text-muted">{{ $user->email }}</div>
+						<h2 class="mb-0">{{ $user->full_name ?? 'N/A' }}</h2>
+						<div class="text-muted">{{ $user->email ?? 'No email provided' }}</div>
 					</div>
 				</div>
 				<h5 class="mb-3" style="color:#1e3c72;">Personal Information</h5>
 				<div class="row mb-3">
 					<div class="col-md-6">
-						<strong>NIC:</strong> {{ $user->nic }}
+						<strong>NIC:</strong> {{ $user->nic ?? 'N/A' }}
 					</div>
 					<div class="col-md-6">
-						<strong>Telephone:</strong> {{ $user->telephone }}
+						<strong>Telephone:</strong> {{ $user->telephone ?? 'N/A' }}
 					</div>
 				</div>
 				<h5 class="mb-3" style="color:#1e3c72;">Educational Qualifications</h5>
 				<div class="row mb-3">
 					<div class="col-md-6">
-						<strong>Undergraduate Degree(s):</strong> {{ $user->undergraduate_degree }}
+						<strong>Undergraduate Degree(s):</strong> {{ $user->undergraduate_degree ?? 'N/A' }}
 					</div>
 					<div class="col-md-6">
-						<strong>University:</strong> {{ $user->university }}
-					</div>
-				</div>
-				<div class="row mb-3">
-					<div class="col-md-6">
-						<strong>Year:</strong> {{ $user->year }}
-					</div>
-					<div class="col-md-6">
-						<strong>Field:</strong> {{ $user->field }}
+						<strong>University:</strong> {{ $user->university ?? 'N/A' }}
 					</div>
 				</div>
 				<div class="row mb-3">
 					<div class="col-md-6">
-						<strong>GPA/Class:</strong> {{ $user->gpa_class }}
+						<strong>Year:</strong> {{ $user->year ?? 'N/A' }}
+					</div>
+					<div class="col-md-6">
+						<strong>Field:</strong> {{ $user->field ?? 'N/A' }}
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<strong>GPA/Class:</strong> {{ $user->gpa_class ?? 'N/A' }}
 					</div>
 				</div>
 				<h5 class="mb-3" style="color:#1e3c72;">Proposed Programme of Study</h5>
 				<div class="row mb-3">
 					<div class="col-md-6">
-						<strong>Intended Degree:</strong> {{ $user->intended_degree }}
+						<strong>Intended Degree:</strong> {{ $user->intended_degree ?? 'N/A' }}
 					</div>
 					<div class="col-md-6">
-						<strong>Discipline/Area of Research:</strong> {{ $user->discipline_area }}
+						<strong>Discipline/Area of Research:</strong> {{ $user->discipline_area ?? 'N/A' }}
 					</div>
 				</div>
 			</div>
@@ -130,7 +130,7 @@
 @push('scripts')
 <script>
 	// Degree countdown: 4 years from user's application date (simulate with created_at or now)
-	const degreeStart = new Date('{{ ($user->degree_start_date ?? $user->created_at ?? now())->format("Y-m-d H:i:s") }}');
+	const degreeStart = new Date('{!! isset($user) && $user ? ($user->degree_start_date ?? $user->created_at ?? now())->format("Y-m-d H:i:s") : now()->format("Y-m-d H:i:s") !!}');
 	const degreeEnd = new Date(degreeStart);
 	degreeEnd.setFullYear(degreeEnd.getFullYear() + 4);
 	
