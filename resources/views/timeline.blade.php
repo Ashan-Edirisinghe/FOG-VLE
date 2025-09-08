@@ -454,7 +454,7 @@
             name: "Assigning Supervisors", 
             title: "Assigning Supervisors",
             status: "Due",
-            duration: { days: 0, seconds: 30 }, // 30 seconds for testing
+            duration: { days: 0, seconds: 5 }, // 30 seconds for testing
             messages: [
                 {
                     id: "supervisor-assignment",
@@ -468,7 +468,7 @@
             name: "1 Semester", 
             title: "First Semester",
             status: "In Progress",
-            duration: { days: 0, seconds: 45 }, // 45 seconds for testing
+            duration: { days: 0, seconds: 5 }, // 45 seconds for testing
             messages: [
                 {
                     id: "semester1-enrollment",
@@ -482,7 +482,7 @@
             name: "2 Semester", 
             title: "Second Semester",
             status: "Upcoming",
-            duration: { days: 0, seconds: 60 }, // 60 seconds for testing
+            duration: { days: 0, seconds: 5 }, // 60 seconds for testing
             messages: [
                 {
                     id: "semester2-prep",
@@ -496,7 +496,7 @@
             name: "Viva", 
             title: "Viva Voce",
             status: "Due",
-            duration: { days: 2, seconds: 30 }, // 2 days and 30 seconds
+            duration: { days: 0, seconds: 5 }, // 2 days and 30 seconds
             messages: [
                 {
                     id: "payment-slip",
@@ -516,7 +516,7 @@
             name: "Final thesis", 
             title: "Final Thesis Submission",
             status: "Pending",
-            duration: { days: 7, seconds: 0 }, // 7 days
+            duration: { days: 0, seconds: 5 }, // 7 days
             messages: [
                 {
                     id: "thesis-submission",
@@ -530,7 +530,7 @@
             name: "Waiting For Degree", 
             title: "Degree Processing",
             status: "Processing",
-            duration: { days: 30, seconds: 0 }, // 30 days
+            duration: { days: 0, seconds: 5 }, // 30 days
             messages: [
                 {
                     id: "degree-processing",
@@ -544,7 +544,7 @@
             name: "Completed", 
             title: "Congratulations!",
             status: "Completed",
-            duration: { days: 0, seconds: 0 }, // No duration for completed phase
+            duration: { days: 0, seconds: 5 }, // No duration for completed phase
             messages: [
                 {
                     id: "completion",
@@ -729,11 +729,8 @@
         updateDisplay();
         startProcessCountdown();
         
-        // Set degree countdown (total program duration)
-        var totalDurationMs = phases.reduce((sum, phase) => {
-            return sum + calculateDurationInMilliseconds(phase.duration);
-        }, 0);
-        var degreeDeadline = new Date(Date.now() + totalDurationMs);
+        // Set degree countdown to a fixed date in 2028
+        var degreeDeadline = new Date('2028-12-31T23:59:59');
         initializeClock('clockdiv2', degreeDeadline);
     });
 </script>
