@@ -445,7 +445,7 @@
         }
 
     }
-}
+
 </style>
 @endpush
 
