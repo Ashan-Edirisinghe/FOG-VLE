@@ -443,7 +443,9 @@
         #clockdiv div > span, #clockdiv2 div > span {
             font-size: 20px;
         }
+
     }
+}
 </style>
 @endpush
 
@@ -733,6 +735,50 @@
         var degreeDeadline = new Date('2028-12-31T23:59:59');
         initializeClock('clockdiv2', degreeDeadline);
     });
+
+    // Timeline step selection functionality
+    function updateCompleteStatus(selectedStep) {
+        var badge = document.getElementById('completeStatusBadge');
+        if (!badge) return;
+        if (selectedStep.classList.contains('completed')) {
+            badge.textContent = 'Done';
+            badge.classList.remove('bg-warning', 'text-dark');
+            badge.classList.add('bg-success', 'text-white');
+        } else {
+            badge.textContent = 'Due';
+            badge.classList.remove('bg-success', 'text-white');
+            badge.classList.add('bg-warning', 'text-dark');
+        }
+    }
+    function setupTimelineSelection() {
+        timelineSteps.forEach((step) => {
+            step.addEventListener('click', function() {
+                // Remove selected from all
+                timelineSteps.forEach(s => s.classList.remove('selected'));
+                // Add selected to clicked
+                this.classList.add('selected');
+                // Set Event Name
+                var label = this.querySelector('.timeline-label').textContent;
+                var eventName = document.querySelector('h4.font-weight-bold.mb-0');
+                if (eventName) eventName.textContent = label;
+                // Update complete status
+                updateCompleteStatus(this);
+                // Reset process countdown to 1 year from now
+                updateProcessCountdown(new Date());
+            });
+        });
+        // Set initial status on page load
+        var initialSelected = document.querySelector('.timeline-step.selectable.selected');
+        if (initialSelected) {
+            updateCompleteStatus(initialSelected);
+            refreshProcessCountdownForSelected();
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupTimelineSelection);
+    } else {
+        setupTimelineSelection();
+    }
 </script>
 @endpush
 @endsection
