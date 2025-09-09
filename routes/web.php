@@ -16,6 +16,7 @@ use App\Http\Controllers\ApplicationController;
 |
 */
 
+
 // Authentication Routes
 Route::get('/', [AuthController::class, 'showSignupForm'])->name('signup');
 Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup.form');
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
         $candidate = $user->candidate()->with('applications')->first();
         return view('profile', compact('user', 'candidate'));
     })->name('profile');
+
 });
 
 // Other existing routes
