@@ -2,7 +2,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Carbon;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +16,36 @@ use Illuminate\Support\Carbon;
 |
 */
 
-Route::get('/', function () {
-    return view('signin');
+// Authentication Routes
+Route::get('/', [AuthController::class, 'showSignupForm'])->name('signup');
+Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup.form');
+Route::post('/signup', [AuthController::class, 'register'])->name('signup.submit');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Application Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/application-form', [ApplicationController::class, 'showApplicationForm'])->name('application.form');
+    Route::post('/application-submit', [ApplicationController::class, 'submitApplication'])->name('application.submit');
+    Route::get('/application-success', [ApplicationController::class, 'applicationSuccess'])->name('application.success');
+    Route::get('/my-applications', [ApplicationController::class, 'myApplications'])->name('my.applications');
+    
+    // Dashboard (protected route)
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+    // Profile route
+    Route::get('/profile', function () {
+        $user = auth()->user();
+        $candidate = $user->candidate()->with('applications')->first();
+        return view('profile', compact('user', 'candidate'));
+    })->name('profile');
 });
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-
-Route::get('/application-form', function () {
-    return view('application-form');
-})->name('application.form');
-
+// Other existing routes
 Route::get('/interview-status', function () {
     return view('interview-status');
 })->name('interview.status');
@@ -38,78 +57,4 @@ Route::get('/payment', function () {
 Route::get('/timeline', function () {
     return view('timeline');
 })->name('timeline');
-
-Route::post('/register', function () {
-    // For now, just redirect back with a success message
-    return redirect('/')->with('success', 'Account created successfully!');
-})->name('register');
-
-Route::post('/login', function () {
-    // For now, just redirect back with a success message
-    return redirect('/login')->with('success', 'Login successful!');
-})->name('login.post');
-
-Route::get('/login', function () {
-    return view('signin');
-})->name('login');
-
-Route::get('/application-form', function () {
-    return view('application-form');
-})->name('application.form');
-
-Route::get('/application', function () {
-    return view('application');
-})->name('application');
-
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-
-Route::get('/interview-status', function () {
-    return view('interview-status');
-})->name('interview.status');
-
-Route::get('/payment', function () {
-    return view('payment');
-})->name('payment');
-
-Route::get('/timeline', function () {
-    return view('timeline');
-})->name('timeline');
-
-Route::post('/register', function () {
-    // For now, just redirect back with a success message
-    return redirect('/')->with('success', 'Account created successfully!');
-})->name('register');
-
-Route::post('/login', function () {
-    // For now, just redirect back with a success message
-    return redirect('/login')->with('success', 'Login successful!');
-})->name('login.post');
-
-Route::post('/application-form', function () {
-    // For now, just redirect back with a success message
-    return redirect('/application-form')->with('success', 'Application submitted successfully!');
-})->name('application.submit');
-
-//Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
-
-Route::get('/profile', function () {
-    $user = (object)[
-        'name' => 'Test User',
-        'full_name' => 'Test User',
-        'email' => 'test@example.com',
-        'nic' => '123456789V',
-        'telephone' => '0712345678',
-        'undergraduate_degree' => 'BSc in Computer Science',
-        'university' => 'Sabaragamuwa University',
-        'year' => '2022',
-        'field' => 'Computer Science',
-        'gpa_class' => 'First Class',
-        'intended_degree' => 'MSc in Data Science',
-        'discipline_area' => 'Artificial Intelligence',
-        'degree_start_date' => Carbon::now()->subMonths(2),
-    ];
-    return view('profile', compact('user'));
-})->name('profile');
 
