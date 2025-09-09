@@ -51,7 +51,8 @@
 </div>  
  <br>
 <div class="col-md-6">  
-  <form action="/admissions/signup.php" method="post">  
+  <form action="{{ route('signup.submit') }}" method="post">  
+    @csrf
     <!--Form-->
     <div class="card wow fadeInRight">
         <div class="card-block">
@@ -60,6 +61,29 @@
                 <h1><!--<i class="fa fa-user"></i>--> Create your account</h1>
                 <hr>
             </div>
+            
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+            
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             <!--Body-->            
       <div class="col-md-12">      
             <div class="md-form">
@@ -80,8 +104,8 @@
             </div>
             </div>
 <div class="text-xs-center">
-<a href="/application" class="btn btn-primary" style="color: #fff;">Create your account</a>
-                <hr><p><a href="/login">Sign in</a></p>                
+<button type="submit" class="btn btn-primary" style="color: #fff;">Create your account</button>
+                <hr><p><a href="{{ route('login') }}">Sign in</a></p>                
             </div>
         </div>
     </div>

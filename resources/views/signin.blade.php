@@ -64,26 +64,50 @@
                             <h1><!--<i class="fa fa-user"></i>--> Sign in</h1>
                             <hr>
                         </div>
-                        <form action="/admissions/login.php" method="post">
+                        
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        
+                        <form action="{{ route('login.submit') }}" method="post">
+                            @csrf
                             <!--Body-->         
                             <div class="col-md-12">      
                                 <div class="md-form">
-                                    <input type="text" id="form2" class="form-control" name="stu_email" value="">
-                                    <label for="form2">E-mail/Username <span class="text-danger">*</span></label>
+                                    <input type="email" id="form2" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <label for="form2">E-mail <span class="text-danger">*</span></label>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="md-form">
-                                    <input type="password" id="form4" class="form-control" name="stu_password">
-                                    <label for="form3">Password <span class="text-danger">*</span></label>
+                                    <input type="password" id="form4" class="form-control" name="password" required>
+                                    <label for="form4">Password <span class="text-danger">*</span></label>
                                 </div>
                             </div>
                             <div class="text-xs-center">
-                                <hr><p><a href="/timeline" class="btn btn-primary" style="color: #fff;">Sign in</a></p> 
+                                <hr><button type="submit" class="btn btn-primary" style="color: #fff;">Sign in</button>
                                 <hr>
                             </div>
                             <div class="col-md-6"><p class="small text-xs-left"><a href="#" data-toggle="modal" data-target="#myModal">Forgot password?</a></p></div>
-                            <div class="col-md-6"><p class="small text-xs-right"><a href="/signup">Create your account</a></p></div>
+                            <div class="col-md-6"><p class="small text-xs-right"><a href="{{ route('signup') }}">Create your account</a></p></div>
                             <!--/.Form-->
                         </form>
                     </div>

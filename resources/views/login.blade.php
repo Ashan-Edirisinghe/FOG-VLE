@@ -13,12 +13,34 @@
                 
                 <h2 class="text-center mb-4">Sign in</h2>
                 
-                <form method="POST" action="{{ route('login') }}">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                
+                <form method="POST" action="{{ route('login.submit') }}">
                     @csrf
                     
                     <div class="mb-3">
                         <label for="email" class="form-label">Email or mobile phone number</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                     </div>
                     
                     <div class="mb-3 position-relative">
@@ -42,6 +64,11 @@
                     <div class="d-flex justify-content-between">
                         <a href="#" class="text-decoration-none small">Other issue with sign in</a>
                         <a href="#" class="text-decoration-none small">Forgot your password?</a>
+                    </div>
+                    
+                    <hr>
+                    <div class="text-center">
+                        <small>Don't have an account? <a href="{{ route('signup') }}" class="text-decoration-none">Create your account</a></small>
                     </div>
                 </form>
             </div>

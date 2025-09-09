@@ -1,424 +1,306 @@
 @extends('layouts.app')
 
-@section('title', 'Timeline - Graduate Studies')
+
+@section('title', 'Profile - Graduate Studies')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <!-- Left Side - Timeline -->
-        <div class="col-lg-6">
-            <div class="timeline-container">
-                <!-- Timeline Items -->
-                <div class="timeline-wrapper">
-                    <div class="timeline-item completed">
-                        <div class="timeline-circle completed"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-label">Assigning Supervisors</div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item active">
-                        <div class="timeline-circle active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-label">1 Semester</div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item pending">
-                        <div class="timeline-circle pending"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-label">2 Semester</div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item current">
-                        <div class="timeline-circle current"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-label">Viva</div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item pending">
-                        <div class="timeline-circle pending"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-label">Final thesis</div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item pending">
-                        <div class="timeline-circle pending"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-label">Waiting For Degree</div>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item pending">
-                        <div class="timeline-circle pending"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-label">Completed</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Right Side - Message Board and Countdown -->
-        <div class="col-lg-6">
-            <!-- Message Board -->
-            <div class="message-board">
-                <h3>message board</h3>
-                
-                <div class="message-item">
-                    <div class="message-header">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Title</span>
-                        <button class="btn-close">×</button>
-                    </div>
-                    <div class="message-body">Body text.</div>
-                    <button class="btn-message">Button</button>
-                </div>
-                
-                <div class="message-item">
-                    <div class="message-header">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Title</span>
-                        <button class="btn-close">×</button>
-                    </div>
-                    <div class="message-body">Body text.</div>
-                    <button class="btn-message">Button</button>
-                </div>
-            </div>
-            
-            <!-- Countdown Timers -->
-            <div class="countdown-section">
-                <div class="countdown-box">
-                    <h4>Process Countdown</h4>
-                    <div class="countdown-display">
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processYears">03</span>
-                            <span class="countdown-label">Years</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processDays">20</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="processHours">15</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="countdown-box">
-                    <h4>Total Countdown</h4>
-                    <div class="countdown-display">
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalYears">03</span>
-                            <span class="countdown-label">Years</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalDays">20</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="totalHours">15</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-lg-9">
+			<div class="card-custom mb-4">
+				<div class="d-flex align-items-center mb-4">
+					<div class="profile-icon me-4">
+						<i class="fas fa-user"></i>
+					</div>
+					<div>
+						<h2 class="mb-0">{{ $candidate->full_name ?? ($user->name ?? 'N/A') }}</h2>
+						<div class="text-muted">{{ $candidate->email ?? $user->email ?? 'No email provided' }}</div>
+					</div>
+				</div>
+				
+				@if($candidate)
+					<h5 class="mb-3" style="color:#1e3c72;">Personal Information</h5>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<strong>Full Name:</strong> {{ $candidate->full_name ?? 'N/A' }}
+						</div>
+						<div class="col-md-6">
+							<strong>NIC:</strong> {{ $candidate->nic ?? 'N/A' }}
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<strong>Email:</strong> {{ $candidate->email ?? 'N/A' }}
+						</div>
+						<div class="col-md-6">
+							<strong>Telephone:</strong> {{ $candidate->telephone ?? 'N/A' }}
+						</div>
+					</div>
+					
+					<h5 class="mb-3" style="color:#1e3c72;">Educational Qualifications</h5>
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<strong>Undergraduate Degree(s):</strong> {{ $candidate->undergraduate_degree ?? 'N/A' }}
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<strong>University:</strong> {{ $candidate->university ?? 'N/A' }}
+						</div>
+						<div class="col-md-6">
+							<strong>Year:</strong> {{ $candidate->year ?? 'N/A' }}
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<strong>Field:</strong> {{ $candidate->field ?? 'N/A' }}
+						</div>
+						<div class="col-md-6">
+							<strong>GPA/Class:</strong> {{ $candidate->gpa_class ?? 'N/A' }}
+						</div>
+					</div>
+					
+					@if($candidate->applications && $candidate->applications->count() > 0)
+						<h5 class="mb-3" style="color:#1e3c72;">Applications</h5>
+						@foreach($candidate->applications as $application)
+							<div class="application-item mb-3 p-3" style="background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #1e3c72;">
+								<div class="row">
+									<div class="col-md-6">
+										<strong>Intended Degree:</strong> {{ $application->intended_degree ?? 'N/A' }}
+									</div>
+									<div class="col-md-6">
+										<strong>Status:</strong> 
+										<span class="badge {{ $application->status === 'pending' ? 'bg-warning' : ($application->status === 'approved' ? 'bg-success' : 'bg-danger') }}">
+											{{ ucfirst($application->status ?? 'pending') }}
+										</span>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-md-12">
+										<strong>Discipline/Area of Research:</strong> {{ $application->discipline_area ?? 'N/A' }}
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-md-6">
+										<strong>Applied Date:</strong> {{ $application->created_at ? $application->created_at->format('M d, Y') : 'N/A' }}
+									</div>
+									<div class="col-md-6">
+										<strong>Last Updated:</strong> {{ $application->updated_at ? $application->updated_at->format('M d, Y') : 'N/A' }}
+									</div>
+								</div>
+							</div>
+						@endforeach
+					@else
+						<h5 class="mb-3" style="color:#1e3c72;">Applications</h5>
+						<div class="alert alert-info">
+							<i class="fas fa-info-circle me-2"></i>
+							No applications submitted yet. <a href="{{ route('application.form') }}" class="alert-link">Submit your first application</a>.
+						</div>
+					@endif
+				@else
+					<div class="alert alert-warning">
+						<i class="fas fa-exclamation-triangle me-2"></i>
+						Your profile is incomplete. Please <a href="{{ route('application.form') }}" class="alert-link">complete your application form</a> to see your profile information.
+					</div>
+				@endif
+			</div>
+			<div class="card-custom mb-4">
+				<h5 class="mb-3" style="color:#1e3c72;">Actions</h5>
+				<div class="d-flex flex-wrap gap-2">
+					@if($candidate)
+						<a href="{{ route('application.form') }}" class="btn btn-primary">
+							<i class="fas fa-plus me-2"></i>Submit New Application
+						</a>
+						<a href="{{ route('my.applications') }}" class="btn btn-outline-primary">
+							<i class="fas fa-list me-2"></i>View All Applications
+						</a>
+					@else
+						<a href="{{ route('application.form') }}" class="btn btn-primary">
+							<i class="fas fa-user-plus me-2"></i>Complete Profile & Apply
+						</a>
+					@endif
+					<a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">
+						<i class="fas fa-home me-2"></i>Back to Dashboard
+					</a>
+				</div>
+			</div>
+			<div class="card-custom mb-4">
+				<h5 class="mb-3" style="color:#1e3c72;">Degree Countdown</h5>
+				<div class="d-flex justify-content-center align-items-center">
+					<div class="countdown-item mx-2">
+						<div class="countdown-number" id="degreeDays">000</div>
+						<div class="countdown-label">Days</div>
+					</div>
+					<div class="countdown-item mx-2">
+						<div class="countdown-number" id="degreeHours">00</div>
+						<div class="countdown-label">Hours</div>
+					</div>
+					<div class="countdown-item mx-2">
+						<div class="countdown-number" id="degreeMinutes">00</div>
+						<div class="countdown-label">Minutes</div>
+					</div>
+					<div class="countdown-item mx-2">
+						<div class="countdown-number" id="degreeSeconds">00</div>
+						<div class="countdown-label">Seconds</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @push('styles')
 <style>
-    .container-fluid {
-        padding: 40px 15px;
-    }
-    
-    /* Timeline Styles */
-    .timeline-container {
-        padding: 40px 20px;
-        position: relative;
-    }
-    
-    .timeline-wrapper {
-        position: relative;
-        padding-left: 60px;
-    }
-    
-    .timeline-wrapper::before {
-        content: '';
-        position: absolute;
-        left: 30px;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: #ddd;
-    }
-    
-    .timeline-item {
-        position: relative;
-        margin-bottom: 30px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .timeline-circle {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        position: absolute;
-        left: -50px;
-        border: 3px solid #fff;
-        z-index: 2;
-    }
-    
-    .timeline-circle.completed {
-        background: #ff6b6b;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #ff6b6b;
-    }
-    
-    .timeline-circle.active {
-        background: #4dabf7;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #4dabf7;
-    }
-    
-    .timeline-circle.pending {
-        background: #ff8cc8;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #ff8cc8;
-    }
-    
-    .timeline-circle.current {
-        background: #ffd43b;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #ffd43b;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-    
-    .timeline-content {
-        flex: 1;
-        margin-left: 20px;
-    }
-    
-    .timeline-label {
-        background: #69db7c;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 25px;
-        font-weight: 500;
-        display: inline-block;
-        min-width: 150px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    .timeline-item.completed .timeline-label {
-        background: #ff6b6b;
-    }
-    
-    .timeline-item.active .timeline-label {
-        background: #4dabf7;
-    }
-    
-    .timeline-item.pending .timeline-label {
-        background: #ff8cc8;
-    }
-    
-    .timeline-item.current .timeline-label {
-        background: #ffd43b;
-        color: #333;
-    }
-    
-    /* Message Board Styles */
-    .message-board {
-        background: #e9ecef;
-        padding: 25px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-    }
-    
-    .message-board h3 {
-        margin: 0 0 25px 0;
-        color: #333;
-        font-size: 1.3rem;
-        font-weight: 600;
-    }
-    
-    .message-item {
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    
-    .message-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    
-    .message-header i {
-        color: #666;
-        margin-right: 8px;
-    }
-    
-    .message-header span {
-        font-weight: 600;
-        color: #333;
-        flex: 1;
-    }
-    
-    .btn-close {
-        background: none;
-        border: none;
-        font-size: 1.2rem;
-        color: #999;
-        cursor: pointer;
-        padding: 0;
-        width: 20px;
-        height: 20px;
-    }
-    
-    .btn-close:hover {
-        color: #666;
-    }
-    
-    .message-body {
-        color: #666;
-        margin-bottom: 15px;
-        font-size: 0.95rem;
-    }
-    
-    .btn-message {
-        background: #6c757d;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    
-    .btn-message:hover {
-        background: #1e3c72;
-    }
-    
-    /* Countdown Styles */
-    .countdown-section {
-        display: flex;
-        gap: 20px;
-    }
-    
-    .countdown-box {
-        flex: 1;
-        background: #f8f9fa;
-        padding: 25px;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    
-    .countdown-box h4 {
-        margin: 0 0 20px 0;
-        color: #333;
-        font-size: 1.1rem;
-        font-weight: 600;
-    }
-    
-    .countdown-display {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-    }
-    
-    .countdown-item {
-        flex: 1;
-        text-align: center;
-    }
-    
-    .countdown-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #333;
-        line-height: 1;
-        margin-bottom: 5px;
-    }
-    
-    .countdown-label {
-        font-size: 0.9rem;
-        color: #666;
-        text-transform: capitalize;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 991px) {
-        .countdown-section {
-            flex-direction: column;
-        }
-        
-        .timeline-container {
-            margin-bottom: 40px;
-        }
-    }
+	.card-custom {
+		background: white;
+		border-radius: 10px;
+		padding: 25px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		border: none;
+	}
+	
+	.profile-icon {
+		width: 60px;
+		height: 60px;
+		background: linear-gradient(135deg, #1e3c72, #2a5298);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-size: 24px;
+	}
+	
+	.countdown-number {
+		font-size: 2.2rem;
+		font-weight: bold;
+		color: #222;
+		background: #f1f3f5;
+		border-radius: 8px;
+		padding: 8px 18px;
+		margin-bottom: 4px;
+		min-width: 55px;
+		display: inline-block;
+		text-align: center;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+	}
+	
+	.countdown-label {
+		font-size: 1rem;
+		color: #666;
+		text-align: center;
+	}
+	
+	.application-item {
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+	
+	.application-item:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+	}
+	
+	.badge {
+		font-size: 0.85rem;
+		padding: 0.4em 0.8em;
+	}
+	
+	.alert-link {
+		font-weight: 600;
+		text-decoration: none;
+	}
+	
+	.alert-link:hover {
+		text-decoration: underline;
+	}
+	
+	.btn {
+		border-radius: 8px;
+		padding: 10px 20px;
+		font-weight: 500;
+		transition: all 0.3s ease;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		margin: 5px 5px 5px 0;
+	}
+	
+	.btn-primary {
+		background: linear-gradient(135deg, #1e3c72, #2a5298);
+		border: none;
+		color: white;
+	}
+	
+	.btn-primary:hover {
+		background: linear-gradient(135deg, #2a5298, #1e3c72);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+	}
+	
+	.btn-outline-primary {
+		border: 2px solid #1e3c72;
+		color: #1e3c72;
+		background: transparent;
+	}
+	
+	.btn-outline-primary:hover {
+		background: #1e3c72;
+		color: white;
+		transform: translateY(-1px);
+		box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+	}
+	
+	.btn-outline-secondary {
+		border: 2px solid #6c757d;
+		color: #6c757d;
+		background: transparent;
+	}
+	
+	.btn-outline-secondary:hover {
+		background: #6c757d;
+		color: white;
+		transform: translateY(-1px);
+	}
+	
+	.gap-2 {
+		gap: 0.5rem;
+	}
 </style>
 @endpush
 
 @push('scripts')
 <script>
-    // Countdown timer functionality
-    function updateCountdown() {
-        // You can set your target date here
-        const targetDate = new Date('2028-12-31 23:59:59').getTime();
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        
-        const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-        const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        
-        // Update Process Countdown
-        document.getElementById('processYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('processDays').textContent = String(days).padStart(2, '0');
-        document.getElementById('processHours').textContent = String(hours).padStart(2, '0');
-        
-        // Update Total Countdown (same for demo)
-        document.getElementById('totalYears').textContent = String(years).padStart(2, '0');
-        document.getElementById('totalDays').textContent = String(days).padStart(2, '0');
-        document.getElementById('totalHours').textContent = String(hours).padStart(2, '0');
-    }
-    
-    // Update countdown every hour
-    updateCountdown();
-    setInterval(updateCountdown, 3600000);
-    
-    // Message close functionality
-    document.querySelectorAll('.btn-close').forEach(button => {
-        button.addEventListener('click', function() {
-            this.closest('.message-item').remove();
-        });
-    });
-    
-    // Message button functionality
-    document.querySelectorAll('.btn-message').forEach(button => {
-        button.addEventListener('click', function() {
-            alert('Message button clicked!');
-        });
-    });
+	// Degree countdown: 4 years from user's application date or account creation
+	let degreeStart;
+	@if(isset($candidate) && $candidate && $candidate->created_at)
+		degreeStart = new Date('{{ $candidate->created_at->format("Y-m-d H:i:s") }}');
+	@elseif(isset($user) && $user && $user->created_at)
+		degreeStart = new Date('{{ $user->created_at->format("Y-m-d H:i:s") }}');
+	@else
+		degreeStart = new Date(); // Default to current date
+	@endif
+	
+	const degreeEnd = new Date(degreeStart);
+	degreeEnd.setFullYear(degreeEnd.getFullYear() + 4);
+	
+	function updateDegreeCountdownProfile() {
+		const now = new Date();
+		let distance = degreeEnd - now;
+		if (distance < 0) distance = 0;
+		
+		const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		
+		document.getElementById('degreeDays').textContent = String(days).padStart(3, '0');
+		document.getElementById('degreeHours').textContent = String(hours).padStart(2, '0');
+		document.getElementById('degreeMinutes').textContent = String(minutes).padStart(2, '0');
+		document.getElementById('degreeSeconds').textContent = String(seconds).padStart(2, '0');
+	}
+	
+	updateDegreeCountdownProfile();
+	setInterval(updateDegreeCountdownProfile, 1000);
 </script>
 @endpush
 @endsection
