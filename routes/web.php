@@ -60,3 +60,6 @@ Route::get('/timeline', function () {
     return view('timeline');
 })->name('timeline');
 
+Route::get('/evaluation', function () {
+    return view('evaluation');
+})->name('evaluation');
