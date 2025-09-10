@@ -84,7 +84,7 @@ The application will be available at [http://localhost:8000](http://localhost:80
 
 ## About Laravel
 
-Laravel is a modern PHP web application framework that emphasizes simplicity, elegance, and readability. It is designed to make the development process a delightful experience for developers by providing a clean and expressive syntax, as well as a rich set of features out of the box.
+Laravel is a PHP web application framework that emphasizes simplicity, elegance, and readability. It is designed to make the development process a delightful experience for developers by providing a clean and expressive syntax, as well as a rich set of features out of the box.
 
 Key features of Laravel include:
 
