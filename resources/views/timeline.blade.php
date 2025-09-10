@@ -5,331 +5,371 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        
-        <div class="col-lg-6">
-            <div class="d-flex justify-content-center align-items-center h-100" style="min-height:600px;">
-                <div style="position:relative; display:inline-block;">
-                    <!-- Button positioned relative to the image -->
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:5.9%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/supervisors'">
-                        Assigning Supervisors
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:20.8%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/semester1'">
-                        1 Semester
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:35.7%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/semester2'">
-                        2 Semester
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:50.6%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/viva'">
-                        Viva
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:65.5%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/thesis'">
-                        Final thesis
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:80.4%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/pending'">
-                        Degree Pending
-                    </button>
-                    <button class="btn btn-primary"
-                        style="position:absolute; top:95.3%; left:73%; transform:translate(-50%, -50%); padding:0.1em 5em; font-size:1em; border-radius:10px; background: transparent; border: none; color: #000000ff; box-shadow: none;"
-                        onclick="window.location.href='/complete'">
-                        Completed
-                    </button>
-                    <img src="{{ asset('img/timeline.png') }}" alt="Timeline"
-                        style="max-width:100%; max-height:500px; border-radius:12px;">
+        <!-- Left Side - Timeline -->
+        <div class="col-lg-4">
+            <div class="timeline-container">
+                <h2 class="timeline-title">Timeline</h2>
+                <div class="timeline-wrapper">
+                    <div class="timeline-item" data-phase="0">
+                        <div class="timeline-circle"></div>
+                        <div class="timeline-content">
+                            <button class="timeline-btn" onclick="selectPhase(0)">
+                                Assigning Supervisors
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-phase="1">
+                        <div class="timeline-circle"></div>
+                        <div class="timeline-content">
+                            <button class="timeline-btn" onclick="selectPhase(1)">
+                                1 Semester
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-phase="2">
+                        <div class="timeline-circle"></div>
+                        <div class="timeline-content">
+                            <button class="timeline-btn" onclick="selectPhase(2)">
+                                2 Semester
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item active" data-phase="3">
+                        <div class="timeline-circle active"></div>
+                        <div class="timeline-content">
+                            <button class="timeline-btn active" onclick="selectPhase(3)">
+                                Viva
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-phase="4">
+                        <div class="timeline-circle"></div>
+                        <div class="timeline-content">
+                            <button class="timeline-btn" onclick="selectPhase(4)">
+                                Final thesis
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-phase="5">
+                        <div class="timeline-circle"></div>
+                        <div class="timeline-content">
+                            <button class="timeline-btn" onclick="selectPhase(5)">
+                                Waiting For Degree
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-phase="6">
+                        <div class="timeline-circle"></div>
+                        <div class="timeline-content">
+                            <button class="timeline-btn" onclick="selectPhase(6)">
+                                Completed
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Right Side - Message Board and Countdown -->
-        <div class="col-lg-6">
-    <!-- Message Board -->
-    <div class="message-board">
-        <h3  id="main-heading">Assigning Supervisors</h3>
-    </div>
-    <div style="display: flex; gap: 40px; justify-content: center;">
-        <div>
-            <h1 id="sub-heading">Assigning</h1>
-            <div id="clockdiv">
-                <div>
-                    <span class="days"></span>
-                    <div class="smalltext">Days</div>
+        <!-- Right Side - Event Details -->
+        <div class="col-lg-8">
+            <!-- Event Header -->
+            <div class="event-header">
+                <h2 id="event-name">Event Name</h2>
+            </div>
+            
+            <!-- Message Board -->
+            <div class="message-board">
+                <h3 id="main-heading">message board</h3>
+                
+                <!-- Document Upload Messages -->
+                <div class="message-item" id="payment-slip-msg">
+                    <div class="message-header">
+                        <span>Upload your payment slip PDF file</span>
+                        <button class="btn-close" onclick="closeMessage('payment-slip-msg')">&times;</button>
+                    </div>
+                    <div class="message-body">Document need to be uploaded</div>
+                    <button class="btn-message">Submit</button>
                 </div>
-                <div>
-                    <span class="hours"></span>
-                    <div class="smalltext">Hours</div>
+                
+                <div class="message-item" id="evaluation-form-msg">
+                    <div class="message-header">
+                        <span>Upload your evaluation form (PDF file)</span>
+                        <button class="btn-close" onclick="closeMessage('evaluation-form-msg')">&times;</button>
+                    </div>
+                    <div class="message-body">Document need to be uploaded</div>
+                    <button class="btn-message">Submit</button>
                 </div>
-                <div>
-                    <span class="minutes"></span>
-                    <div class="smalltext">Minutes</div>
+            </div>
+            
+            <!-- Status Badge -->
+            <div class="status-container">
+                <span class="status-label">Complete status :</span>
+                <span class="status-badge" id="status-badge">Due</span>
+            </div>
+            
+            <!-- Countdown Section -->
+            <div class="countdown-section">
+                <div class="countdown-box">
+                    <h4 id="process-countdown-title">Process Countdown</h4>
+                    <div id="clockdiv">
+                        <div>
+                            <span class="days">364</span>
+                            <div class="smalltext">Days</div>
+                        </div>
+                        <div>
+                            <span class="hours">23</span>
+                            <div class="smalltext">Hours</div>
+                        </div>
+                        <div>
+                            <span class="minutes">58</span>
+                            <div class="smalltext">Minutes</div>
+                        </div>
+                        <div>
+                            <span class="seconds">21</span>
+                            <div class="smalltext">Seconds</div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span class="seconds"></span>
-                    <div class="smalltext">Seconds</div>
+                
+                <div class="countdown-box">
+                    <h4>Degree Countdown</h4>
+                    <div id="clockdiv2">
+                        <div>
+                            <span class="days">1461</span>
+                            <div class="smalltext">Days</div>
+                        </div>
+                        <div>
+                            <span class="hours">10</span>
+                            <div class="smalltext">Hours</div>
+                        </div>
+                        <div>
+                            <span class="minutes">32</span>
+                            <div class="smalltext">Minutes</div>
+                        </div>
+                        <div>
+                            <span class="seconds">34</span>
+                            <div class="smalltext">Seconds</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div>
-            <h1>Degree Time</h1>
-            <div id="clockdiv2">
-                <div>
-                    <span class="days"></span>
-                    <div class="smalltext">Days</div>
-                </div>
-                <div>
-                    <span class="hours"></span>
-                    <div class="smalltext">Hours</div>
-                </div>
-                <div>
-                    <span class="minutes"></span>
-                    <div class="smalltext">Minutes</div>
-                </div>
-                <div>
-                    <span class="seconds"></span>
-                    <div class="smalltext">Seconds</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
     </div>
 </div>
 
 @push('styles')
 <style>
-    h1{
-        color: #1e3c72;
-        font-weight: 100;
-        font-size: 40px;
-        margin: 10px 0px 10px; /* reduced margin */
-        }
-
-        #clockdiv, #clockdiv2{
-            font-family: sans-serif;
-            color: #fff;
-            display: inline-block;
-            font-weight: 100;
-            text-align: center;
-            font-size: 30px;
-            margin: 0; /* remove default margin */
-        }
-
-        #clockdiv > div, #clockdiv2 > div{
-            padding: 6px; /* reduced padding */
-            border-radius: 3px;
-            background: #4dabf7;
-            display: inline-block;
-            margin: 0 2px; /* reduce spacing between blocks */
-        }
-
-        #clockdiv div > span, #clockdiv2 div > span {
-            padding: 10px; /* reduced padding */
-            border-radius: 3px;
-            background: #1e3c72;
-            display: inline-block;
-        }
-
-        .smalltext{
-            padding-top: 2px; /* reduced padding */
-            font-size: 16px;
-            margin: 0; /* remove default margin */
-        }
-
     .container-fluid {
-        padding: 40px 15px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        min-height: 100vh;
     }
     
     /* Timeline Styles */
     .timeline-container {
-        padding: 40px 20px;
-        position: relative;
+        background: white;
+        border-radius: 10px;
+        padding: 30px 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        height: fit-content;
+    }
+    
+    .timeline-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
     }
     
     .timeline-wrapper {
         position: relative;
-        padding-left: 60px;
+        padding-left: 40px;
     }
     
     .timeline-wrapper::before {
         content: '';
         position: absolute;
-        left: 30px;
+        left: 15px;
         top: 0;
         bottom: 0;
         width: 2px;
-        background: #ddd;
+        background: #e9ecef;
     }
     
     .timeline-item {
         position: relative;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
         display: flex;
         align-items: center;
     }
     
     .timeline-circle {
-        width: 20px;
-        height: 20px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         position: absolute;
-        left: -50px;
+        left: -55px;
+        background: #dee2e6;
         border: 3px solid #fff;
+        box-shadow: 0 0 0 2px #dee2e6;
         z-index: 2;
     }
     
-    .timeline-circle.completed {
-        background: #ff6b6b;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #ff6b6b;
-    }
-    
     .timeline-circle.active {
-        background: #4dabf7;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #4dabf7;
+        background: #007bff;
+        box-shadow: 0 0 0 2px #007bff;
     }
     
-    .timeline-circle.pending {
-        background: #ff8cc8;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #ff8cc8;
-    }
-    
-    .timeline-circle.current {
-        background: #ffd43b;
-        border-color: #fff;
-        box-shadow: 0 0 0 3px #ffd43b;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-    
-    .timeline-content {
-        flex: 1;
-        margin-left: 20px;
-    }
-    
-    .timeline-label {
-        background: #69db7c;
+    .timeline-btn {
+        background: #6c757d;
         color: white;
+        border: none;
         padding: 12px 20px;
-        border-radius: 25px;
-        font-weight: 500;
-        display: inline-block;
-        min-width: 150px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 180px;
         text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     
-    .timeline-item.completed .timeline-label {
-        background: #ff6b6b;
+    .timeline-btn:hover {
+        background: #5a6268;
+        transform: translateY(-1px);
     }
     
-    .timeline-item.active .timeline-label {
-        background: #4dabf7;
+    .timeline-btn.active {
+        background: #007bff;
+        color: white;
     }
     
-    .timeline-item.pending .timeline-label {
-        background: #ff8cc8;
-    }
-    
-    .timeline-item.current .timeline-label {
-        background: #ffd43b;
-        color: #333;
-    }
-    
-    /* Message Board Styles */
-    .message-board {
-        background: #e9ecef;
-        padding: 25px;
+    /* Event Header */
+    .event-header {
+        background: white;
         border-radius: 10px;
-        margin-bottom: 30px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     
-    .message-board h3 {
-        margin: 0 0 25px 0;
-        color: #333;
-        font-size: 1.3rem;
+    #event-name {
+        font-size: 28px;
         font-weight: 600;
+        color: #333;
+        margin: 0;
+    }
+    
+    /* Message Board */
+    .message-board {
+        background: white;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    #main-heading {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
     }
     
     .message-item {
-        background: white;
+        background: #f8f9fa;
         border-radius: 8px;
-        padding: 20px;
+        padding: 15px;
         margin-bottom: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-left: 4px solid #007bff;
     }
     
     .message-header {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    
-    .message-header i {
-        color: #666;
-        margin-right: 8px;
+        align-items: center;
+        margin-bottom: 8px;
     }
     
     .message-header span {
         font-weight: 600;
         color: #333;
-        flex: 1;
+        font-size: 14px;
     }
     
     .btn-close {
         background: none;
         border: none;
-        font-size: 1.2rem;
-        color: #999;
+        font-size: 18px;
+        color: #6c757d;
         cursor: pointer;
         padding: 0;
         width: 20px;
         height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .btn-close:hover {
-        color: #666;
+        color: #495057;
     }
     
     .message-body {
-        color: #666;
-        margin-bottom: 15px;
-        font-size: 0.95rem;
+        color: #6c757d;
+        font-size: 13px;
+        margin-bottom: 10px;
     }
     
     .btn-message {
-        background: #6c757d;
+        background: #333;
         color: white;
         border: none;
-        padding: 8px 16px;
-        border-radius: 5px;
-        font-size: 0.9rem;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
         cursor: pointer;
         transition: background-color 0.3s;
     }
     
     .btn-message:hover {
-        background: #1e3c72;
+        background: #495057;
     }
     
-    /* Countdown Styles */
+    /* Status Badge */
+    .status-container {
+        background: white;
+        border-radius: 10px;
+        padding: 15px 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .status-label {
+        font-size: 14px;
+        color: #333;
+        font-weight: 500;
+    }
+    
+    .status-badge {
+        background: #ffc107;
+        color: #333;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    
+    /* Countdown Section */
     .countdown-section {
         display: flex;
         gap: 20px;
@@ -337,44 +377,48 @@
     
     .countdown-box {
         flex: 1;
-        background: #f8f9fa;
-        padding: 25px;
+        background: white;
         border-radius: 10px;
+        padding: 25px;
         text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     
     .countdown-box h4 {
-        margin: 0 0 20px 0;
-        color: #333;
-        font-size: 1.1rem;
+        font-size: 16px;
         font-weight: 600;
-    }
-    
-    .countdown-display {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-    }
-    
-    .countdown-item {
-        flex: 1;
-        text-align: center;
-    }
-    
-    .countdown-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: bold;
         color: #333;
-        line-height: 1;
-        margin-bottom: 5px;
+        margin: 0 0 20px 0;
     }
     
-    .countdown-label {
-        font-size: 0.9rem;
-        color: #666;
-        text-transform: capitalize;
+    #clockdiv, #clockdiv2 {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    #clockdiv > div, #clockdiv2 > div {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        min-width: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #clockdiv div > span, #clockdiv2 div > span {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1;
+    }
+    
+    .smalltext {
+        font-size: 11px;
+        margin-top: 4px;
+        opacity: 0.9;
     }
     
     /* Responsive Design */
@@ -384,7 +428,20 @@
         }
         
         .timeline-container {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+        }
+        
+        #clockdiv, #clockdiv2 {
+            gap: 5px;
+        }
+        
+        #clockdiv > div, #clockdiv2 > div {
+            min-width: 50px;
+            padding: 8px;
+        }
+        
+        #clockdiv div > span, #clockdiv2 div > span {
+            font-size: 20px;
         }
     }
 </style>
@@ -393,93 +450,218 @@
 @push('scripts')
 <script>
     const phases = [
-        { main: "Assigning Supervices", sub: "Assigning", seconds: 5 },
-        { main: "Semester 1", sub: "Semester 1 Time", seconds: 5 },
-        { main: "Semester 2", sub: "Semester 2 Time", seconds: 5 },
-        { main: "Viva", sub: "Viva Time", seconds: 5 },
-        { main: "Degree is pending", sub: "Pending Time", seconds: 5 },
-        { main: "Congraulations Degree in Comple", sub: "Shows in notice", seconds: 5 },
+        { 
+            name: "Assigning Supervisors", 
+            title: "Assigning Supervisors",
+            status: "Due",
+            duration: { days: 0, seconds: 5 }, // 30 seconds for testing
+            messages: [
+                {
+                    id: "supervisor-assignment",
+                    title: "Supervisor Assignment Required",
+                    body: "Please wait for supervisor assignment",
+                    button: "Check Status"
+                }
+            ]
+        },
+        { 
+            name: "1 Semester", 
+            title: "First Semester",
+            status: "In Progress",
+            duration: { days: 0, seconds: 5 }, // 45 seconds for testing
+            messages: [
+                {
+                    id: "semester1-enrollment",
+                    title: "Semester 1 Course Enrollment",
+                    body: "Complete your course registration",
+                    button: "Enroll Now"
+                }
+            ]
+        },
+        { 
+            name: "2 Semester", 
+            title: "Second Semester",
+            status: "Upcoming",
+            duration: { days: 0, seconds: 5 }, // 60 seconds for testing
+            messages: [
+                {
+                    id: "semester2-prep",
+                    title: "Semester 2 Preparation",
+                    body: "Prepare for second semester courses",
+                    button: "View Courses"
+                }
+            ]
+        },
+        { 
+            name: "Viva", 
+            title: "Viva Voce",
+            status: "Due",
+            duration: { days: 0, seconds: 5 }, // 2 days and 30 seconds
+            messages: [
+                {
+                    id: "payment-slip",
+                    title: "Upload your payment slip PDF file",
+                    body: "Document need to be uploaded",
+                    button: "Submit"
+                },
+                {
+                    id: "evaluation-form",
+                    title: "Upload your evaluation form (PDF file)",
+                    body: "Document need to be uploaded",
+                    button: "Submit"
+                }
+            ]
+        },
+        { 
+            name: "Final thesis", 
+            title: "Final Thesis Submission",
+            status: "Pending",
+            duration: { days: 0, seconds: 5 }, // 7 days
+            messages: [
+                {
+                    id: "thesis-submission",
+                    title: "Submit Final Thesis",
+                    body: "Upload your final thesis document",
+                    button: "Upload"
+                }
+            ]
+        },
+        { 
+            name: "Waiting For Degree", 
+            title: "Degree Processing",
+            status: "Processing",
+            duration: { days: 0, seconds: 5 }, // 30 days
+            messages: [
+                {
+                    id: "degree-processing",
+                    title: "Degree Under Processing",
+                    body: "Your degree is being processed",
+                    button: "Track Status"
+                }
+            ]
+        },
+        { 
+            name: "Completed", 
+            title: "Congratulations!",
+            status: "Completed",
+            duration: { days: 0, seconds: 5 }, // No duration for completed phase
+            messages: [
+                {
+                    id: "completion",
+                    title: "Degree Completed Successfully",
+                    body: "Congratulations on completing your degree!",
+                    button: "Download Certificate"
+                }
+            ]
+        }
     ];
 
-    let phaseIndex = 0;
-    let timerInterval = null;
+    let currentPhase = 0; // Start with first phase
+    let processTimer = null;
 
-    function showPhase(index) {
-        // Always clear previous interval before starting a new one
-        if (timerInterval) {
-            clearInterval(timerInterval);
-            timerInterval = null;
+    function selectPhase(phaseIndex) {
+        currentPhase = phaseIndex;
+        updateDisplay();
+        startProcessCountdown();
+    }
+
+    function nextPhase() {
+        if (currentPhase < phases.length - 1) {
+            currentPhase++;
+            updateDisplay();
+            startProcessCountdown();
+        }
+    }
+
+    function calculateDurationInMilliseconds(duration) {
+        return (duration.days * 24 * 60 * 60 * 1000) + (duration.seconds * 1000);
+    }
+
+    function startProcessCountdown() {
+        // Clear existing timer
+        if (processTimer) {
+            clearInterval(processTimer);
         }
 
-        const phase = phases[index];
-        // Update headings
-        let mainHeading = document.querySelector('.message-board h3');
-        let subHeading = document.querySelector('#clockdiv').parentElement.querySelector('h1');
-        if (mainHeading) mainHeading.innerText = phase.main;
-        if (subHeading) subHeading.innerText = phase.sub;
+        const phase = phases[currentPhase];
+        if (phase.duration.days > 0 || phase.duration.seconds > 0) {
+            // Calculate deadline for current phase
+            const durationMs = calculateDurationInMilliseconds(phase.duration);
+            const processDeadline = new Date(Date.now() + durationMs);
+            
+            // Update process countdown title
+            document.getElementById('process-countdown-title').textContent = `${phase.title} Countdown`;
+            
+            // Initialize countdown with auto-advance
+            initializeClock('clockdiv', processDeadline, true);
+        } else {
+            // For completed phase, show zero countdown
+            document.getElementById('process-countdown-title').textContent = 'Process Completed';
+            updateClockDisplay('clockdiv', { days: 0, hours: 0, minutes: 0, seconds: 0 });
+        }
+    }
 
-        let remaining = phase.seconds;
+    function updateDisplay() {
+        const phase = phases[currentPhase];
         
-        // Reset and display the timer immediately
-        updateClockDisplay(remaining);
-
-        timerInterval = setInterval(() => {
-            remaining--;
-            updateClockDisplay(remaining);
-            if (remaining <= 0) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                
-                // Check if we've reached the end of phases array AFTER countdown finishes
-                if (phaseIndex + 1 >= phases.length) {
-                    // Stop here - phases completed
-                    console.log('All phases completed!');
-                    // Optionally, you can hide the countdown or show a completion message
-                    updateClockDisplay(0);
-                    return;
-                }
-                
-                phaseIndex = phaseIndex + 1; // Move to next phase (no looping)
-                
-                // Add a small delay before showing next phase to ensure clean reset
-                setTimeout(() => {
-                    showPhase(phaseIndex);
-                }, 100);
+        // Update event name
+        document.getElementById('event-name').textContent = phase.title;
+        document.getElementById('main-heading').textContent = "message board";
+        
+        // Update status badge
+        const statusBadge = document.getElementById('status-badge');
+        statusBadge.textContent = phase.status;
+        statusBadge.className = 'status-badge ' + phase.status.toLowerCase().replace(' ', '-');
+        
+        // Update timeline visual state
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            const circle = item.querySelector('.timeline-circle');
+            const btn = item.querySelector('.timeline-btn');
+            
+            if (index === currentPhase) {
+                item.classList.add('active');
+                circle.classList.add('active');
+                btn.classList.add('active');
+            } else {
+                item.classList.remove('active');
+                circle.classList.remove('active');
+                btn.classList.remove('active');
             }
-        }, 1000);
-    }
-
-    function updateClockDisplay(sec) {
-        // Force reset all values first
-        let days = document.querySelector('#clockdiv .days');
-        let hours = document.querySelector('#clockdiv .hours');
-        let minutes = document.querySelector('#clockdiv .minutes');
-        let seconds = document.querySelector('#clockdiv .seconds');
+        });
         
-        // Reset display with proper formatting
-        if (days) {
-            days.innerHTML = 0;
-        }
-        if (hours) {
-            hours.innerHTML = '00';
-        }
-        if (minutes) {
-            minutes.innerHTML = '00';
-        }
-        if (seconds) {
-            seconds.innerHTML = sec < 10 ? '0' + sec : sec.toString();
+        // Update messages
+        updateMessages(phase.messages);
+    }
+
+    function updateMessages(messages) {
+        const messageBoard = document.querySelector('.message-board');
+        const existingMessages = messageBoard.querySelectorAll('.message-item');
+        existingMessages.forEach(msg => msg.remove());
+        
+        messages.forEach(msg => {
+            const messageItem = document.createElement('div');
+            messageItem.className = 'message-item';
+            messageItem.id = msg.id;
+            messageItem.innerHTML = `
+                <div class="message-header">
+                    <span>${msg.title}</span>
+                    <button class="btn-close" onclick="closeMessage('${msg.id}')">&times;</button>
+                </div>
+                <div class="message-body">${msg.body}</div>
+                <button class="btn-message">${msg.button}</button>
+            `;
+            messageBoard.appendChild(messageItem);
+        });
+    }
+
+    function closeMessage(messageId) {
+        const messageElement = document.getElementById(messageId);
+        if (messageElement) {
+            messageElement.style.display = 'none';
         }
     }
 
-    // Start the phase cycle when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-        // Wait a bit for DOM to fully load
-        setTimeout(() => {
-            showPhase(phaseIndex);
-        }, 100);
-    });
-
-    // Degree Time countdown (unchanged)
+    // Initialize countdown timers
     function getTimeRemaining(endtime) {
         var t = Date.parse(endtime) - Date.parse(new Date());
         var seconds = Math.floor((t / 1000) % 60);
@@ -495,41 +677,64 @@
         };
     }
 
-    function initializeClock(id, endtime) {
+    function updateClockDisplay(id, timeObj) {
         var clock = document.getElementById(id);
-        if (!clock) return; // Safety check
+        if (!clock) return;
         
         var daysSpan = clock.querySelector('.days');
         var hoursSpan = clock.querySelector('.hours');
         var minutesSpan = clock.querySelector('.minutes');
         var secondsSpan = clock.querySelector('.seconds');
 
+        if (daysSpan) daysSpan.innerHTML = timeObj.days;
+        if (hoursSpan) hoursSpan.innerHTML = ('0' + timeObj.hours).slice(-2);
+        if (minutesSpan) minutesSpan.innerHTML = ('0' + timeObj.minutes).slice(-2);
+        if (secondsSpan) secondsSpan.innerHTML = ('0' + timeObj.seconds).slice(-2);
+    }
+
+    function initializeClock(id, endtime, autoAdvance = false) {
+        var clock = document.getElementById(id);
+        if (!clock) return;
+
         function updateClock() {
             var t = getTimeRemaining(endtime);
-
-            if (daysSpan) daysSpan.innerHTML = t.days;
-            if (hoursSpan) hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-            if (minutesSpan) minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-            if (secondsSpan) secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+            updateClockDisplay(id, t);
 
             if (t.total <= 0) {
                 clearInterval(timeinterval);
+                updateClockDisplay(id, { days: 0, hours: 0, minutes: 0, seconds: 0 });
+                
+                // Auto-advance to next phase if enabled
+                if (autoAdvance) {
+                    setTimeout(() => {
+                        nextPhase();
+                    }, 1000);
+                }
             }
         }
 
         updateClock();
         var timeinterval = setInterval(updateClock, 1000);
+        
+        // Store timer reference if it's the process timer
+        if (id === 'clockdiv' && autoAdvance) {
+            processTimer = timeinterval;
+        }
+        
+        return timeinterval;
     }
 
-    // Example: 60 seconds from now for Degree Time
-    var deadline2 = new Date('2027-03-15T10:00:00');
-    initializeClock('clockdiv2', deadline2);
-
-    // Message button functionality (if you use .btn-message)
-    document.querySelectorAll('.btn-message').forEach(button => {
-        button.addEventListener('click', function() {
-            alert('Message button clicked!');
-        });
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateDisplay();
+        startProcessCountdown();
+        
+        // Set degree countdown (total program duration)
+        var totalDurationMs = phases.reduce((sum, phase) => {
+            return sum + calculateDurationInMilliseconds(phase.duration);
+        }, 0);
+        var degreeDeadline = new Date(Date.now() + totalDurationMs);
+        initializeClock('clockdiv2', degreeDeadline);
     });
 </script>
 @endpush
