@@ -176,23 +176,15 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
-                <div class="collapse navbar-collapse" id="navbarNav">
+                  <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li>
-                            <a class="nav-link {{ request()->routeIs('evaluation') ? 'active' : '' }}" href="{{ route('evaluation') }}">Evaluation</a>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">Dashboard</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('timeline') ? 'active' : '' }}" href="{{ route('timeline') }}">Timeline</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
-                        </li> 
+                        
                     </ul>
                 </div>
+                
             </div>
         </nav>
     </header>

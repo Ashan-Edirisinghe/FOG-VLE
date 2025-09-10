@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
+
 @section('title', 'Report Upload - Graduate Studies')
+
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-10">
+
 
             <!-- Tabs -->
             <div class="tab-navigation">
@@ -64,6 +67,7 @@
                         <div class="upload-actions">
                             <button type="button" class="btn-action btn-next">NEXT</button>
                             <button type="button" class="btn-action btn-cancel">CANCEL</button>
+
                         </div>
                     </div>
                 </div>
@@ -75,6 +79,7 @@
 
 @push('styles')
 <style>
+
     .tab-navigation {
         background: #d0d0d0;
         padding: 15px 25px;
@@ -83,10 +88,12 @@
         padding-left: 20px;
         border-radius: 4px ;
     }
+
     .tab-link {
         color: #666;
         text-decoration: none;
         padding: 10px 15px;
+
         border-radius: 4px;
         font-weight: 500;
     }
@@ -100,12 +107,14 @@
         margin-top: 10px;
         border-radius: 5px;
     }
+
     .upload-card {
         background: white;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         overflow: hidden;
     }
+
     .upload-header {
         background: #f8f9fa;
         padding: 15px 20px;
@@ -116,6 +125,7 @@
         font-weight: 500;
         color: #333;
     }
+
     .upload-body {
         padding: 25px;
     }
@@ -131,6 +141,7 @@
         background: #f9f9f9;
         margin-bottom: 25px;
     }
+
     .upload-content p {
         margin: 5px 0;
         color: #666;
@@ -174,6 +185,7 @@
         color: #666;
         border: 1px solid #ddd;
     }
+
     .btn-cancel:hover {
         background: #e9ecef;
         color: #333;
@@ -282,6 +294,7 @@
     // Apply to both sections
     setupUpload("semesterReport", "semesterFile", "browseSemester");
     setupUpload("finalReport", "finalFile", "browseFinal");
+
 </script>
 @endpush
 @endsection

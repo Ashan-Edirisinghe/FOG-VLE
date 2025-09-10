@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\adminLogin;
+use App\Http\Controllers\admin_dash_controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +62,53 @@ Route::get('/timeline', function () {
     return view('timeline');
 })->name('timeline');
 
+
+
+
+// Admin Routes
+Route::get('/admin/admin-login', function () {
+    return view('admin.admin-login');
+})->name('admin.login');
+
+ 
+Route::post('/admin/admin-login', [adminLogin::class, 'adminLogin']);
+
+ 
+
+ Route::get('/admin/admin-dashboard', [\App\Http\Controllers\admin_dash_controller::class, 'showDashboard'])->name('admin.dashboard');
+
+// Admin API Routes
+Route::get('/admin/candidates/names', [\App\Http\Controllers\admin_dash_controller::class, 'getCandidatesNames'])->name('admin.candidates.names');
+Route::get('/admin/candidates/applications', [\App\Http\Controllers\admin_dash_controller::class, 'getCandidatesFromApplications'])->name('admin.candidates.applications');
+Route::get('/admin/candidate/{id}/view', [\App\Http\Controllers\admin_dash_controller::class, 'viewCandidate'])->name('admin.candidate.view');
+
+// Admin Actions Routes
+Route::post('/admin/candidate/{id}/approve', [\App\Http\Controllers\admin_dash_controller::class, 'approveCandidate'])->name('admin.candidate.approve');
+Route::post('/admin/candidate/{id}/reject', [\App\Http\Controllers\admin_dash_controller::class, 'rejectCandidate'])->name('admin.candidate.reject');
+Route::post('/admin/candidate/{id}/status', [\App\Http\Controllers\admin_dash_controller::class, 'updateStatus'])->name('admin.candidate.status');
+
+
 Route::get('/evaluation', function () {
     return view('evaluation');
 })->name('evaluation');
+
+// Debug route to test data
+Route::get('/debug-candidates', function() {
+    try {
+        $applications = \App\Models\Application::count();
+        $candidates = \App\Models\Candidate::count();
+        
+        return response()->json([
+            'applications_count' => $applications,
+            'candidates_count' => $candidates,
+            'applications_sample' => \App\Models\Application::limit(3)->get(),
+            'candidates_sample' => \App\Models\Candidate::limit(3)->get()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => $e->getMessage()
+        ]);
+    }
+});
+
+
