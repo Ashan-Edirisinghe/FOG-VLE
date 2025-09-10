@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\adminLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +61,14 @@ Route::get('/timeline', function () {
     return view('timeline');
 })->name('timeline');
 
+// Admin Routes
+Route::get('/admin/admin-login', function () {
+    return view('admin.admin-login');
+})->name('admin.login');
+
+ 
+Route::post('/admin/admin-login', [adminLogin::class, 'adminLogin']);
+
+Route::get('/admin/admin-dashboard', function () {
+    return view('admin.admin-dashboard');
+})->name('admin.dashboard');
