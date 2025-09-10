@@ -61,6 +61,7 @@ Route::get('/timeline', function () {
     return view('timeline');
 })->name('timeline');
 
+
 // Admin Routes
 Route::get('/admin/admin-login', function () {
     return view('admin.admin-login');
@@ -72,3 +73,9 @@ Route::post('/admin/admin-login', [adminLogin::class, 'adminLogin']);
 Route::get('/admin/admin-dashboard', function () {
     return view('admin.admin-dashboard');
 })->name('admin.dashboard');
+
+Route::get('/evaluation', function () {
+    return view('evaluation');
+})->name('evaluation');
+
+
