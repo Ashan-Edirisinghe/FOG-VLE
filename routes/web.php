@@ -39,6 +39,14 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
     
+    // Student Profile (separate from profile)
+    Route::get('/student/profile', function () {
+        $user = auth()->user();
+        $candidate = $user->candidate()->with('applications')->first();
+        $latestApplication = $candidate ? $candidate->applications()->latest()->first() : null;
+        return view('student-profile', compact('user', 'candidate', 'latestApplication'));
+    })->name('student.profile');
+
     // Profile route
     Route::get('/profile', function () {
         $user = auth()->user();
