@@ -18,7 +18,6 @@ use App\Http\Controllers\admin_dash_controller;
 |
 */
 
-
 // Authentication Routes
 Route::get('/', [AuthController::class, 'showSignupForm'])->name('signup');
 Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup.form');
@@ -47,6 +46,13 @@ Route::middleware('auth')->group(function () {
         return view('profile', compact('user', 'candidate'));
     })->name('profile');
 
+});
+
+// Final Submission Route
+Route::middleware('auth')->group(function () {
+    Route::get('/final-submission', function () {
+        return view('final-submission');
+    })->name('final.submission');
 });
 
 // Other existing routes
