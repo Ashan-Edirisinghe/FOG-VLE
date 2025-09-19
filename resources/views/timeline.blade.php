@@ -1,3 +1,7 @@
+<?php
+use App\Http\Controllers\TimeController;
+use App\Http\Controllers\TimelineController;
+?>
 @extends('layouts.app')
 
 @section('title', 'Timeline - Graduate Studies')
@@ -9,56 +13,66 @@
         <div class="col-lg-4">
             <div class="timeline-container">
                 <h2 class="timeline-title">Timeline</h2>
+                @php
+                    $timelineController = new TimelineController();
+                    $currentPhase = $timelineController->currentPhase;
+
+                  
+                     
+                    // You can now use $timelineData in your Blade template
+                @endphp
+                {{ $currentPhase }}   {{ $timelineController->timeline[$currentPhase]['name'] }} 
+                
                 <div class="timeline-wrapper">
-                    <div class="timeline-item" data-phase="0">
-                        <div class="timeline-circle"></div>
+                    <div class="timeline-item {{ $currentPhase >= 0 ? 'active' : '' }}" data-phase="0">
+                        <div class="timeline-circle {{ $currentPhase >= 0 ? 'active' : '' }}"></div>
                         <div class="timeline-content">
-                            <button class="timeline-btn" onclick="selectPhase(0)">
+                            <button class="timeline-btn {{ $currentPhase >= 0 ? 'active' : '' }}" onclick="selectPhase(0)">
                                 Assigning Supervisors
                             </button>
                         </div>
                     </div>
                     
-                    <div class="timeline-item" data-phase="1">
-                        <div class="timeline-circle"></div>
+                    <div class="timeline-item {{ $currentPhase >= 1 ? 'active' : '' }}" data-phase="1">
+                        <div class="timeline-circle {{ $currentPhase >= 1 ? 'active' : '' }}"></div>
                         <div class="timeline-content">
-                            <button class="timeline-btn" onclick="selectPhase(1)">
+                            <button class="timeline-btn {{ $currentPhase >= 1 ? 'active' : '' }}" onclick="selectPhase(1)">
                                 1 Semester
                             </button>
                         </div>
                     </div>
                     
-                    <div class="timeline-item" data-phase="2">
-                        <div class="timeline-circle"></div>
+                    <div class="timeline-item {{ $currentPhase >= 2 ? 'active' : '' }}" data-phase="2">
+                        <div class="timeline-circle {{ $currentPhase >= 2 ? 'active' : '' }}"></div>
                         <div class="timeline-content">
-                            <button class="timeline-btn" onclick="selectPhase(2)">
+                            <button class="timeline-btn {{ $currentPhase >= 2 ? 'active' : '' }}" onclick="selectPhase(2)">
                                 2 Semester
                             </button>
                         </div>
                     </div>
                     
-                    <div class="timeline-item active" data-phase="3">
-                        <div class="timeline-circle active"></div>
+                    <div class="timeline-item {{ $currentPhase >= 3 ? 'active' : '' }}" data-phase="3">
+                        <div class="timeline-circle {{ $currentPhase >= 3 ? 'active' : '' }}"></div>
                         <div class="timeline-content">
-                            <button class="timeline-btn active" onclick="selectPhase(3)">
+                            <button class="timeline-btn {{ $currentPhase >= 3 ? 'active' : '' }}" onclick="selectPhase(3)">
                                 Viva
                             </button>
                         </div>
                     </div>
                     
-                    <div class="timeline-item" data-phase="4">
-                        <div class="timeline-circle"></div>
+                    <div class="timeline-item {{ $currentPhase >= 4 ? 'active' : '' }}" data-phase="4">
+                        <div class="timeline-circle {{ $currentPhase >= 4 ? 'active' : '' }}"></div>
                         <div class="timeline-content">
-                            <button class="timeline-btn" onclick="selectPhase(4)">
+                            <button class="timeline-btn {{ $currentPhase >= 4 ? 'active' : '' }}" onclick="selectPhase(4)">
                                 Final thesis
                             </button>
                         </div>
                     </div>
                     
-                    <div class="timeline-item" data-phase="5">
-                        <div class="timeline-circle"></div>
+                    <div class="timeline-item {{ $currentPhase >= 5 ? 'active' : '' }}" data-phase="5">
+                        <div class="timeline-circle {{ $currentPhase >= 5 ? 'active' : '' }}"></div>
                         <div class="timeline-content">
-                            <button class="timeline-btn" onclick="selectPhase(5)">
+                            <button class="timeline-btn {{ $currentPhase >= 5 ? 'active' : '' }}" onclick="selectPhase(5)">
                                 Waiting For Degree
                             </button>
                         </div>
@@ -136,27 +150,29 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="countdown-box">
+                    @php
+                        // Import the controller class
+                        // Call the countdown function
+                        $degreeCountdown = (new  TimeController())->countdown();
+                    @endphp
                     <h4>Degree Countdown</h4>
                     <div id="clockdiv2">
-                        <div>
-                            <span class="days">1461</span>
+                        <div class="countdown-item">
+                            <span class="years">{{ $degreeCountdown['years'] ?? '0' }}</span>
+                            <div class="smalltext">Years</div>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="months">{{ $degreeCountdown['months'] ?? '0' }}</span>
+                            <div class="smalltext">Months</div>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="days">{{ $degreeCountdown['days'] ?? '0' }}</span>
                             <div class="smalltext">Days</div>
                         </div>
-                        <div>
-                            <span class="hours">10</span>
-                            <div class="smalltext">Hours</div>
-                        </div>
-                        <div>
-                            <span class="minutes">32</span>
-                            <div class="smalltext">Minutes</div>
-                        </div>
-                        <div>
-                            <span class="seconds">34</span>
-                            <div class="smalltext">Seconds</div>
-                        </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -409,7 +425,24 @@
         align-items: center;
     }
     
+    .countdown-item {
+        background: #007bff !important;
+        color: white !important;
+        padding: 10px;
+        border-radius: 8px;
+        min-width: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
     #clockdiv div > span, #clockdiv2 div > span {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1;
+    }
+    
+    .countdown-item > span {
         font-size: 24px;
         font-weight: bold;
         line-height: 1;
@@ -447,295 +480,5 @@
 </style>
 @endpush
 
-@push('scripts')
-<script>
-    const phases = [
-        { 
-            name: "Assigning Supervisors", 
-            title: "Assigning Supervisors",
-            status: "Due",
-            duration: { days: 0, seconds: 5 }, // 30 seconds for testing
-            messages: [
-                {
-                    id: "supervisor-assignment",
-                    title: "Supervisor Assignment Required",
-                    body: "Please wait for supervisor assignment",
-                    button: "Check Status"
-                }
-            ]
-        },
-        { 
-            name: "1 Semester", 
-            title: "First Semester",
-            status: "In Progress",
-            duration: { days: 0, seconds: 5 }, // 45 seconds for testing
-            messages: [
-                {
-                    id: "semester1-enrollment",
-                    title: "Semester 1 Course Enrollment",
-                    body: "Complete your course registration",
-                    button: "Enroll Now"
-                }
-            ]
-        },
-        { 
-            name: "2 Semester", 
-            title: "Second Semester",
-            status: "Upcoming",
-            duration: { days: 0, seconds: 5 }, // 60 seconds for testing
-            messages: [
-                {
-                    id: "semester2-prep",
-                    title: "Semester 2 Preparation",
-                    body: "Prepare for second semester courses",
-                    button: "View Courses"
-                }
-            ]
-        },
-        { 
-            name: "Viva", 
-            title: "Viva Voce",
-            status: "Due",
-            duration: { days: 0, seconds: 5 }, // 2 days and 30 seconds
-            messages: [
-                {
-                    id: "payment-slip",
-                    title: "Upload your payment slip PDF file",
-                    body: "Document need to be uploaded",
-                    button: "Submit"
-                },
-                {
-                    id: "evaluation-form",
-                    title: "Upload your evaluation form (PDF file)",
-                    body: "Document need to be uploaded",
-                    button: "Submit"
-                }
-            ]
-        },
-        { 
-            name: "Final thesis", 
-            title: "Final Thesis Submission",
-            status: "Pending",
-            duration: { days: 0, seconds: 5 }, // 7 days
-            messages: [
-                {
-                    id: "thesis-submission",
-                    title: "Submit Final Thesis",
-                    body: "Upload your final thesis document",
-                    button: "Upload"
-                }
-            ]
-        },
-        { 
-            name: "Waiting For Degree", 
-            title: "Degree Processing",
-            status: "Processing",
-            duration: { days: 0, seconds: 5 }, // 30 days
-            messages: [
-                {
-                    id: "degree-processing",
-                    title: "Degree Under Processing",
-                    body: "Your degree is being processed",
-                    button: "Track Status"
-                }
-            ]
-        },
-        { 
-            name: "Completed", 
-            title: "Congratulations!",
-            status: "Completed",
-            duration: { days: 0, seconds: 5 }, // No duration for completed phase
-            messages: [
-                {
-                    id: "completion",
-                    title: "Degree Completed Successfully",
-                    body: "Congratulations on completing your degree!",
-                    button: "Download Certificate"
-                }
-            ]
-        }
-    ];
-
-    let currentPhase = 0; // Start with first phase
-    let processTimer = null;
-
-    function selectPhase(phaseIndex) {
-        currentPhase = phaseIndex;
-        updateDisplay();
-        startProcessCountdown();
-    }
-
-    function nextPhase() {
-        if (currentPhase < phases.length - 1) {
-            currentPhase++;
-            updateDisplay();
-            startProcessCountdown();
-        }
-    }
-
-    function calculateDurationInMilliseconds(duration) {
-        return (duration.days * 24 * 60 * 60 * 1000) + (duration.seconds * 1000);
-    }
-
-    function startProcessCountdown() {
-        // Clear existing timer
-        if (processTimer) {
-            clearInterval(processTimer);
-        }
-
-        const phase = phases[currentPhase];
-        if (phase.duration.days > 0 || phase.duration.seconds > 0) {
-            // Calculate deadline for current phase
-            const durationMs = calculateDurationInMilliseconds(phase.duration);
-            const processDeadline = new Date(Date.now() + durationMs);
-            
-            // Update process countdown title
-            document.getElementById('process-countdown-title').textContent = `${phase.title} Countdown`;
-            
-            // Initialize countdown with auto-advance
-            initializeClock('clockdiv', processDeadline, true);
-        } else {
-            // For completed phase, show zero countdown
-            document.getElementById('process-countdown-title').textContent = 'Process Completed';
-            updateClockDisplay('clockdiv', { days: 0, hours: 0, minutes: 0, seconds: 0 });
-        }
-    }
-
-    function updateDisplay() {
-        const phase = phases[currentPhase];
-        
-        // Update event name
-        document.getElementById('event-name').textContent = phase.title;
-        document.getElementById('main-heading').textContent = "message board";
-        
-        // Update status badge
-        const statusBadge = document.getElementById('status-badge');
-        statusBadge.textContent = phase.status;
-        statusBadge.className = 'status-badge ' + phase.status.toLowerCase().replace(' ', '-');
-        
-        // Update timeline visual state
-        document.querySelectorAll('.timeline-item').forEach((item, index) => {
-            const circle = item.querySelector('.timeline-circle');
-            const btn = item.querySelector('.timeline-btn');
-            
-            if (index === currentPhase) {
-                item.classList.add('active');
-                circle.classList.add('active');
-                btn.classList.add('active');
-            } else {
-                item.classList.remove('active');
-                circle.classList.remove('active');
-                btn.classList.remove('active');
-            }
-        });
-        
-        // Update messages
-        updateMessages(phase.messages);
-    }
-
-    function updateMessages(messages) {
-        const messageBoard = document.querySelector('.message-board');
-        const existingMessages = messageBoard.querySelectorAll('.message-item');
-        existingMessages.forEach(msg => msg.remove());
-        
-        messages.forEach(msg => {
-            const messageItem = document.createElement('div');
-            messageItem.className = 'message-item';
-            messageItem.id = msg.id;
-            messageItem.innerHTML = `
-                <div class="message-header">
-                    <span>${msg.title}</span>
-                    <button class="btn-close" onclick="closeMessage('${msg.id}')">&times;</button>
-                </div>
-                <div class="message-body">${msg.body}</div>
-                <button class="btn-message">${msg.button}</button>
-            `;
-            messageBoard.appendChild(messageItem);
-        });
-    }
-
-    function closeMessage(messageId) {
-        const messageElement = document.getElementById(messageId);
-        if (messageElement) {
-            messageElement.style.display = 'none';
-        }
-    }
-
-    // Initialize countdown timers
-    function getTimeRemaining(endtime) {
-        var t = Date.parse(endtime) - Date.parse(new Date());
-        var seconds = Math.floor((t / 1000) % 60);
-        var minutes = Math.floor((t / 1000 / 60) % 60);
-        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-        var days = Math.floor(t / (1000 * 60 * 60 * 24));
-        return {
-            'total': t,
-            'days': days,
-            'hours': hours,
-            'minutes': minutes,
-            'seconds': seconds
-        };
-    }
-
-    function updateClockDisplay(id, timeObj) {
-        var clock = document.getElementById(id);
-        if (!clock) return;
-        
-        var daysSpan = clock.querySelector('.days');
-        var hoursSpan = clock.querySelector('.hours');
-        var minutesSpan = clock.querySelector('.minutes');
-        var secondsSpan = clock.querySelector('.seconds');
-
-        if (daysSpan) daysSpan.innerHTML = timeObj.days;
-        if (hoursSpan) hoursSpan.innerHTML = ('0' + timeObj.hours).slice(-2);
-        if (minutesSpan) minutesSpan.innerHTML = ('0' + timeObj.minutes).slice(-2);
-        if (secondsSpan) secondsSpan.innerHTML = ('0' + timeObj.seconds).slice(-2);
-    }
-
-    function initializeClock(id, endtime, autoAdvance = false) {
-        var clock = document.getElementById(id);
-        if (!clock) return;
-
-        function updateClock() {
-            var t = getTimeRemaining(endtime);
-            updateClockDisplay(id, t);
-
-            if (t.total <= 0) {
-                clearInterval(timeinterval);
-                updateClockDisplay(id, { days: 0, hours: 0, minutes: 0, seconds: 0 });
-                
-                // Auto-advance to next phase if enabled
-                if (autoAdvance) {
-                    setTimeout(() => {
-                        nextPhase();
-                    }, 1000);
-                }
-            }
-        }
-
-        updateClock();
-        var timeinterval = setInterval(updateClock, 1000);
-        
-        // Store timer reference if it's the process timer
-        if (id === 'clockdiv' && autoAdvance) {
-            processTimer = timeinterval;
-        }
-        
-        return timeinterval;
-    }
-
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        updateDisplay();
-        startProcessCountdown();
-        
-        // Set degree countdown (total program duration)
-        var totalDurationMs = phases.reduce((sum, phase) => {
-            return sum + calculateDurationInMilliseconds(phase.duration);
-        }, 0);
-        var degreeDeadline = new Date(Date.now() + totalDurationMs);
-        initializeClock('clockdiv2', degreeDeadline);
-    });
-</script>
-@endpush
+ 
 @endsection

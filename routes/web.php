@@ -6,6 +6,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\adminLogin;
 use App\Http\Controllers\admin_dash_controller;
+use App\Http\Controllers\FinalSubmissionController;
+use App\Http\Controllers\TimeController;
+use App\Http\Controllers\TimelineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,9 @@ Route::middleware('auth')->group(function () {
         return view('profile', compact('user', 'candidate'));
     })->name('profile');
 
+    // Time Controller routes
+    Route::get('/application/created-date', [TimeController::class, 'created_date'])->name('application.created_date');
+
 });
 
 // Final Submission Route
@@ -61,6 +67,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/final-submission', function () {
         return view('final-submission');
     })->name('final.submission');
+    
+    // Add POST route for file submission
+    Route::post('/final-submission', [\App\Http\Controllers\FinalSubmissionController::class, 'store'])->name('final.submission.store');
 });
 
 // Other existing routes
@@ -72,10 +81,7 @@ Route::get('/payment', function () {
     return view('payment');
 })->name('payment');
 
-Route::get('/timeline', function () {
-    return view('timeline');
-})->name('timeline');
-
+ 
 
 
 
@@ -126,3 +132,8 @@ Route::get('/debug-candidates', function() {
 });
 
 
+
+//timecontroller routes
+
+Route::get('/timeline', [TimeController::class, 'showTimeline'])->name('timeline');
+Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline');
