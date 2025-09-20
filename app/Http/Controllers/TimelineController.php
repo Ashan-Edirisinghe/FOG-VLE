@@ -41,7 +41,8 @@ public $timeline = [
     'data' => ['graduated_sd','graduated_ed']]
 ];
 
-  public $currentPhase = 0; // Default value
+  public $currentPhase = 0;
+  
 
   public function __construct()
   {
@@ -71,36 +72,60 @@ public $timeline = [
         $dates->{$this->timeline[$this->currentPhase]['data'][1]} === '0000-00-00'
     ) {
         // Handle case where no valid date is found
-        return view('timeline')->with('currentPhase', $this->currentPhase);
+        
+        return view('timeline', ['currentPhase' => $this->currentPhase]);
     }
     
    
     $endDate = $dates->{$this->timeline[$this->currentPhase]['data'][1]};
     
-    $checkdate =   strtotime($endDate) - strtotime(date('Y-m-d'));
+    
+    $checkdate = strtotime($endDate) - strtotime(date('Y-m-d'));
+     
 
     if($checkdate <= 0){
         // Move to next phase
         $newPhase = $this->currentPhase + 1;
         
-        \App\Models\User_phase::where('email', auth()->user()->email)
-                              ->update(['currentphase' => $newPhase]);
+        if (auth()->check()) {
+            \App\Models\User_phase::where('email', auth()->user()->email)
+                                  ->update(['currentphase' => $newPhase]);
+        }
         
         // Update the local property
         $this->currentPhase = $newPhase;
    }
 
-    return  [
-         
-        'endDate' => $endDate,
-        'checkdate' => $checkdate,
-        'currentPhase' => $this->currentPhase,
-      
-    ];
+   return $this; // Return the controller instance
+}
+
+
+public function processCountdown(){
+    $dates = $this->getColumndate();
+     $end_date = $dates->{$this->timeline[$this->currentPhase]['data'][1]};
+
+    $now = now();
+    if ($now > $end_date) {
+        return [
+            'years' => 0,
+                'months' => 0,
+                'days' => 0,
+            ];
+        }
+
+        $diff = $now->diff($end_date);
+
+        return [
+            'years' => $diff->y,
+            'months' => $diff->m,
+            'days' => $diff->d,
+        ];
+    
 }
 
 public function index(){
     $this->showTimeline();
+    $this->processCountdown();
     return view('timeline');
 }
 

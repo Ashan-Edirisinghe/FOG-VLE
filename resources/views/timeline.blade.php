@@ -16,12 +16,13 @@ use App\Http\Controllers\TimelineController;
                 @php
                     $timelineController = new TimelineController();
                     $currentPhase = $timelineController->currentPhase;
-
-                  
+                    $p_countdown = $timelineController->processCountdown();
+                   
                      
                     // You can now use $timelineData in your Blade template
                 @endphp
-                {{ $currentPhase }}   {{ $timelineController->timeline[$currentPhase]['name'] }} 
+                {{ $currentPhase }}   {{ $timelineController->timeline[$currentPhase]['name'] ?? '' }}  
+                
                 
                 <div class="timeline-wrapper">
                     <div class="timeline-item {{ $currentPhase >= 0 ? 'active' : '' }}" data-phase="0">
@@ -132,23 +133,19 @@ use App\Http\Controllers\TimelineController;
                 <div class="countdown-box">
                     <h4 id="process-countdown-title">Process Countdown</h4>
                     <div id="clockdiv">
-                        <div>
-                            <span class="days">364</span>
+                         <div class="countdown-item">
+                            <span class="years">{{ $p_countdown['years'] ?? '0' }}</span>
+                            <div class="smalltext">Years</div>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="months">{{ $p_countdown['months'] ?? '0' }}</span>
+                            <div class="smalltext">Months</div>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="days">{{ $p_countdown['days'] ?? '0' }}</span>
                             <div class="smalltext">Days</div>
                         </div>
-                        <div>
-                            <span class="hours">23</span>
-                            <div class="smalltext">Hours</div>
                         </div>
-                        <div>
-                            <span class="minutes">58</span>
-                            <div class="smalltext">Minutes</div>
-                        </div>
-                        <div>
-                            <span class="seconds">21</span>
-                            <div class="smalltext">Seconds</div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="countdown-box">

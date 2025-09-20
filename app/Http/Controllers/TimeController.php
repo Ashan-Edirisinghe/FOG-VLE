@@ -65,8 +65,9 @@ class TimeController extends Controller
             'days' => $diff->d,
         ];
     }
-
-
+      
+   
+ 
     
 
     public function showTimeline()
