@@ -27,7 +27,18 @@ public $timeline = [
     'phase' => 2,
     'name' => 'sem2',
     'data' => ['sem2_sd','sem2_ed']
-    ]
+    ],[
+    'phase' => 3,
+    'name' => 'viva',
+    'data' => ['viva_sd','viva_ed'],
+    ],[
+    'phase' => 4,
+    'name' => 'Final thesis',
+    'data' => ['finals_sd','finals_ed']
+    ],[
+    'phase' => 5,
+    'name' => 'waiting',  
+    'data' => ['graduated_sd','graduated_ed']]
 ];
 
   public $currentPhase = 0; // Default value
