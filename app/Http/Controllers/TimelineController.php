@@ -52,6 +52,8 @@ public $timeline = [
                                  ->where('email', auth()->user()->email)
                                  ->value('currentphase') ?? 0;
       }
+
+     
   }
 
   public function getColumndate(){
@@ -63,8 +65,35 @@ public $timeline = [
     return $dates;
   }
 
+  public function getVivadates(){
+    $dates = User_phase::select($this->timeline[$this->currentPhase]['data'][0], $this->timeline[$this->currentPhase]['data'][1])
+                                  ->where('email', auth()->user()->email)
+                                  ->first();
+    return $dates;
+  }
+
  public function showTimeline(){
+
+    //check vor viva phase
+ 
+   if($this->currentPhase == 3){
+
+     $dates =$this->getVivadates();
+
+     if (
+        !$dates ||
+        
+        $dates->{$this->timeline[$this->currentPhase]['data'][1]} === '0000-00-00'
+    ) {
+        // Handle case where no valid date is found
+        
+        return view('timeline', ['currentPhase' => $this->currentPhase]);
+    }
+
+   }else{ 
+
     $dates = $this->getColumndate();
+    
     
     if (
         !$dates ||
@@ -76,7 +105,10 @@ public $timeline = [
         return view('timeline', ['currentPhase' => $this->currentPhase]);
     }
     
-   
+    }
+
+    //for anycondtions
+
     $endDate = $dates->{$this->timeline[$this->currentPhase]['data'][1]};
     
     
