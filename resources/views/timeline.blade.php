@@ -6,7 +6,34 @@ use App\Http\Controllers\TimelineController;
 
 @section('title', 'Timeline - Graduate Studies')
 
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+
 @section('content')
+<!-- socket io function -->
+<script> 
+    $(function() {
+
+       let ip_address = '127.0.0.1';
+       let socket_port = '3001';  // Socket.IO server on port 3001
+
+       let socket = io(ip_address + ':' + socket_port);
+
+        socket.on('connect', () => {
+            console.log('Connected to Socket.IO server');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from Socket.IO server');
+        });
+        
+        socket.on('error', (error) => {
+            console.error('Socket.IO connection error:', error);
+        });
+    }); 
+</script>
+
 <div class="container-fluid">
     <div class="row">
         <!-- Left Side - Timeline -->
@@ -152,7 +179,7 @@ use App\Http\Controllers\TimelineController;
                     @php
                         // Import the controller class
                         // Call the countdown function
-                        $degreeCountdown = (new  TimeController())->countdown();
+                        $degreeCountdown = (new TimeController())->countdown();
                     @endphp
                     <h4>Degree Countdown</h4>
                     <div id="clockdiv2">

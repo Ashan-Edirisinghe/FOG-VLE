@@ -59,6 +59,9 @@ Route::middleware('auth')->group(function () {
 
     // Time Controller routes
     Route::get('/application/created-date', [TimeController::class, 'created_date'])->name('application.created_date');
+    
+    // Timeline route
+    Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline');
 
 });
 
@@ -134,6 +137,3 @@ Route::get('/debug-candidates', function() {
 
 
 //timecontroller routes
-
-Route::get('/timeline', [TimeController::class, 'showTimeline'])->name('timeline');
-Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline');
