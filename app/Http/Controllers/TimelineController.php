@@ -17,28 +17,39 @@ public $timeline = [
     [ 
     'phase' => 0,
     'name' => 'Assigning Supervisor',
-    'data' => ['supervisor_sd','supervisor_ed']
+    'data' => ['supervisor_sd','supervisor_ed'],
+    'notification' => ['Supervisor Assigned']
+     
     ],
     [ 
     'phase' => 1,
     'name' => 'sem1',
-    'data' => ['sem1_sd','sem1_ed']
-    ],[
+    'data' => ['sem1_sd','sem1_ed'],
+    'notification' => ['Semester 1 Started', 'Semester 1 Ended']
+    ],
+    [
     'phase' => 2,
     'name' => 'sem2',
-    'data' => ['sem2_sd','sem2_ed']
-    ],[
+    'data' => ['sem2_sd','sem2_ed'],
+    'notification' => ['Semester 2 Started', 'Semester 2 Ended']
+    ],
+    [
     'phase' => 3,
     'name' => 'viva',
     'data' => ['viva_sd','viva_ed'],
-    ],[
+    'notification' => ['Viva Started', 'Viva Ended']
+    ],
+    [
     'phase' => 4,
     'name' => 'Final thesis',
-    'data' => ['finals_sd','finals_ed']
-    ],[
+    'data' => ['finals_sd','finals_ed'],
+    'notification' => ['Final Thesis Started', 'Final Thesis Ended']
+    ],
+    [
     'phase' => 5,
     'name' => 'waiting',  
-    'data' => ['graduated_sd','graduated_ed']]
+    'data' => ['graduated_sd','graduated_ed']],
+    'notification' => ['Graduation Started', 'Graduation Ended']
 ];
 
   public $currentPhase = 0;
