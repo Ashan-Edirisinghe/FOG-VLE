@@ -74,7 +74,7 @@ public $timeline = [
 
  public function showTimeline(){
 
-    //check vor viva phase
+    //check for viva phase
  
    if($this->currentPhase == 3){
 
@@ -91,6 +91,8 @@ public $timeline = [
     }
 
    }else{ 
+
+    //for other phases
 
     $dates = $this->getColumndate();
     

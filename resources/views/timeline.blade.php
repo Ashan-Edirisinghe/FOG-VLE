@@ -16,18 +16,34 @@ use App\Http\Controllers\TimelineController;
     $(function() {
 
        let ip_address = '127.0.0.1';
-       let socket_port = '3001';  // Socket.IO server on port 3001
+       let socket_port = '3002';  // Socket.IO server on port 3001
 
        let socket = io(ip_address + ':' + socket_port);
 
         socket.on('connect', () => {
             console.log('Connected to Socket.IO server');
+            
+            // Send notification after connection is established
+            @php
+              $timelineController = new TimelineController();
+              $currentPhase = $timelineController->currentPhase;
+            @endphp
+
+            let notification = {{ $currentPhase}};
+            socket.emit('sendNotification', notification);
         });
+        
+        socket.on('receiveNotification', (data) => {
+            console.log('Received notification:', data);
+            $('.message-header span').append(` Phase: ${data}`);
+        });
+    
 
         socket.on('disconnect', () => {
             console.log('Disconnected from Socket.IO server');
         });
         
+
         socket.on('error', (error) => {
             console.error('Socket.IO connection error:', error);
         });
@@ -132,21 +148,14 @@ use App\Http\Controllers\TimelineController;
                 <!-- Document Upload Messages -->
                 <div class="message-item" id="payment-slip-msg">
                     <div class="message-header">
-                        <span>Upload your payment slip PDF file</span>
+                        <span> </span>
                         <button class="btn-close" onclick="closeMessage('payment-slip-msg')">&times;</button>
                     </div>
                     <div class="message-body">Document need to be uploaded</div>
                     <button class="btn-message">Submit</button>
                 </div>
                 
-                <div class="message-item" id="evaluation-form-msg">
-                    <div class="message-header">
-                        <span>Upload your evaluation form (PDF file)</span>
-                        <button class="btn-close" onclick="closeMessage('evaluation-form-msg')">&times;</button>
-                    </div>
-                    <div class="message-body">Document need to be uploaded</div>
-                    <button class="btn-message">Submit</button>
-                </div>
+                
             </div>
             
             <!-- Status Badge -->

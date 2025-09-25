@@ -13,11 +13,19 @@ const io =  require('socket.io')(server, {
 io.on('connection', (socket) => {
     console.log('A user connected');
 
+
+    socket.on('sendNotification', (data) => {
+        console.log('Notification received:', data);
+
+        // Correct way to broadcast to all connected clients
+        io.emit('receiveNotification', data);
+    });
+
     socket.on('disconnect', () => {
         console.log('A user disconnected');
     });
 });
 
-server.listen(3001, () => {
+server.listen(3002, () => {
     console.log('Socket.IO Server is running on port 3001');
 });
