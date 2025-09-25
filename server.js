@@ -14,11 +14,11 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
 
-    socket.on('sendNotification', (data) => {
-        console.log('Notification received:', data);
+    socket.on('sendNotification', (notification) => {
+        console.log('Notification received:', notification);
 
         // Correct way to broadcast to all connected clients
-        io.emit('receiveNotification', data);
+        io.emit('receiveNotification', notification);
     });
 
     socket.on('disconnect', () => {

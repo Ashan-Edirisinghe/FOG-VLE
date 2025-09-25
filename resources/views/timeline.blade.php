@@ -26,16 +26,19 @@ use App\Http\Controllers\TimelineController;
             // Send notification after connection is established
             @php
               $timelineController = new TimelineController();
-              $currentPhase = $timelineController->currentPhase;
+                $currentPhase = $timelineController->currentPhase;
+              // Directly access the timeline array notification[0]
+              $firstNotification = $timelineController->timeline[$currentPhase]['notification'] ?? 'No notification available';
             @endphp
 
-            let notification = {{ $notifications[0] ?? 'null' }};
+            let notification = '{{ $firstNotification[0] }}';
+            console.log('Sending notification:', notification);
             socket.emit('sendNotification', notification);
         });
         
-        socket.on('receiveNotification', (data) => {
-            console.log('Received notification:', data);
-            $('.message-header span').append(` Phase: ${data}`);
+        socket.on('receiveNotification', (notification) => {
+            console.log('Received notification:', notification);
+            $('.message-header span').text(notification); // Replace content instead of append
         });
     
 

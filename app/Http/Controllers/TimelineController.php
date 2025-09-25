@@ -48,12 +48,13 @@ public $timeline = [
     [
     'phase' => 5,
     'name' => 'waiting',  
-    'data' => ['graduated_sd','graduated_ed']],
+    'data' => ['graduated_sd','graduated_ed'],
     'notification' => ['Graduation Started', 'Graduation Ended']
+    ]
 ];
 
   public $currentPhase = 0;
-  public $notifications = []; // Initialize as null
+ 
   
 
   public function __construct()
@@ -64,8 +65,6 @@ public $timeline = [
                                  ->where('email', auth()->user()->email)
                                  ->value('currentphase') ?? 0;
       }
-
-     
   }
 
   public function getColumndate(){
@@ -141,8 +140,7 @@ public $timeline = [
         // Update the local property
         $this->currentPhase = $newPhase;
    }
-
-   $this->notifications = $this->timeline[$this->currentPhase]['notification'];
+ 
 
    return $this; // Return the controller instance
 }
