@@ -29,7 +29,7 @@ use App\Http\Controllers\TimelineController;
               $currentPhase = $timelineController->currentPhase;
             @endphp
 
-            let notification = {{ $currentPhase}};
+            let notification = {{ $notifications[0] ?? 'null' }};
             socket.emit('sendNotification', notification);
         });
         

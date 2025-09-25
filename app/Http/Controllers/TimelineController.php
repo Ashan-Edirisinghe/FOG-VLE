@@ -53,6 +53,7 @@ public $timeline = [
 ];
 
   public $currentPhase = 0;
+  public $notifications = []; // Initialize as null
   
 
   public function __construct()
@@ -120,7 +121,7 @@ public $timeline = [
     
     }
 
-    //for anycondtions
+    //for any conditions
 
     $endDate = $dates->{$this->timeline[$this->currentPhase]['data'][1]};
     
@@ -140,6 +141,8 @@ public $timeline = [
         // Update the local property
         $this->currentPhase = $newPhase;
    }
+
+   $this->notifications = $this->timeline[$this->currentPhase]['notification'];
 
    return $this; // Return the controller instance
 }
