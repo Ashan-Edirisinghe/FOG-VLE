@@ -23,15 +23,15 @@ public $timeline = [
     ],
     [ 
     'phase' => 1,
-    'name' => 'sem1',
+    'name' => 'semester 1',
     'data' => ['sem1_sd','sem1_ed'],
-    'notification' => ['Semester 1 Started', 'Semester 1 Ended']
+    'notification' => ['Semester 1 Started', 'Semester 1 submitions']
     ],
     [
     'phase' => 2,
-    'name' => 'sem2',
+    'name' => 'semester 2',
     'data' => ['sem2_sd','sem2_ed'],
-    'notification' => ['Semester 2 Started', 'Semester 2 Ended']
+    'notification' => ['Semester 2 Started', 'Semester 2 submitions',]
     ],
     [
     'phase' => 3,
@@ -54,7 +54,7 @@ public $timeline = [
 ];
 
   public $currentPhase = 0;
- 
+  public $notification = null ;
   
 
   public function __construct()
@@ -65,6 +65,9 @@ public $timeline = [
                                  ->where('email', auth()->user()->email)
                                  ->value('currentphase') ?? 0;
       }
+      
+      // Populate the notification property for current phase
+      $this->notification = $this->timeline[$this->currentPhase]['notification'][0] ?? 'No notification available';
   }
 
   public function getColumndate(){
@@ -90,6 +93,7 @@ public $timeline = [
    if($this->currentPhase == 3){
 
      $dates =$this->getVivadates();
+
 
      if (
         !$dates ||
@@ -123,14 +127,50 @@ public $timeline = [
     //for any conditions
 
     $endDate = $dates->{$this->timeline[$this->currentPhase]['data'][1]};
+    $startDate = $dates->{$this->timeline[$this->currentPhase]['data'][0]};
     
     
     $checkdate = strtotime($endDate) - strtotime(date('Y-m-d'));
+
+ 
+
+    $checkdateDays = floor($checkdate / (60 * 60 * 24));
+
+    // Add 14 days to the start date
+    $day14 = date('Y-m-d', strtotime($startDate . ' +14 days'));
+    if($this->currentPhase == 3 && $startDate <= date('Y-m-d') ){ 
+        $notify = "viva starting date is ".$startDate;
+        $this->notification = $notify;
+    }
+
+     // send 1st notification on start date
+    if( $day14 > date('Y-m-d') && $startDate > date('Y-m-d') ){
+    
+    $notify = $this->timeline[$this->currentPhase]['notification'][0];
+    $this->notification = $notify;
+    }
+
+        // send 2 weeks before notifications
+    if ( $this->currentPhase == 1 || $this->currentPhase == 2 ) {
+
+         if($checkdateDays > 0 && $checkdateDays < 14){ 
+        
+        $notify = $this->timeline[$this->currentPhase]['notification'][1];
+        $this->notification = $notify;
+         }
+    }
+
+
+        
+    
+  
      
 
     if($checkdate <= 0){
         // Move to next phase
         $newPhase = $this->currentPhase + 1;
+
+        
         
         if (auth()->check()) {
             \App\Models\User_phase::where('email', auth()->user()->email)

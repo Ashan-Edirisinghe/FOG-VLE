@@ -27,11 +27,11 @@ use App\Http\Controllers\TimelineController;
             @php
               $timelineController = new TimelineController();
                 $currentPhase = $timelineController->currentPhase;
-              // Directly access the timeline array notification[0]
-              $firstNotification = $timelineController->timeline[$currentPhase]['notification'] ?? 'No notification available';
+              // Access the notification property
+            $notifications = $timelineController->notification;
             @endphp
 
-            let notification = '{{ $firstNotification[0] }}';
+            let notification = '{{ $notifications }}';
             console.log('Sending notification:', notification);
             socket.emit('sendNotification', notification);
         });
@@ -67,7 +67,7 @@ use App\Http\Controllers\TimelineController;
                      
                     // You can now use $timelineData in your Blade template
                 @endphp
-                {{ $currentPhase }}   {{ $timelineController->timeline[$currentPhase]['name'] ?? '' }}  
+                   
                 
                 
                 <div class="timeline-wrapper">
@@ -141,7 +141,7 @@ use App\Http\Controllers\TimelineController;
         <div class="col-lg-8">
             <!-- Event Header -->
             <div class="event-header">
-                <h2 id="event-name">Event Name</h2>
+                <h2 id="event-name">  {{ $timelineController->timeline[$currentPhase]['name'] ?? '' }}  </h2>
             </div>
             
             <!-- Message Board -->
@@ -154,7 +154,7 @@ use App\Http\Controllers\TimelineController;
                         <span> </span>
                         <button class="btn-close" onclick="closeMessage('payment-slip-msg')">&times;</button>
                     </div>
-                    <div class="message-body">Document need to be uploaded</div>
+                    <div class="message-body"></div>
                     <button class="btn-message">Submit</button>
                 </div>
                 
