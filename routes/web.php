@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function () {
     
     // Timeline route
     Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline');
+    
+    // Submission route
+    Route::post('/evaluation', [SubmitionController::class, 'submition'])->name('evaluation.store');
 
 });
 
@@ -138,4 +141,4 @@ Route::get('/debug-candidates', function() {
 
 
 //submition routes
-Route::post('/evaluation', [SubmitionController::class, 'submition'])->name('evaluation.store');
+ 

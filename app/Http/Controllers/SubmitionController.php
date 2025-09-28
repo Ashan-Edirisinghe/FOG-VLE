@@ -8,10 +8,16 @@ class SubmitionController extends Controller
 {
     
  public function submition(Request $req){
-    
-         $req->file('report-submitin')->store('documents');
 
+    // Check if file exists before storing
+    if ($req->hasFile('report-submission')) {
+        $req->file('report-submission')->store('documents');
         return view('evaluation');
+    }
+    
+    // If no file, redirect back with error
+    return back()->with('error', 'Please select a file to upload');
+       
  }
 
 }

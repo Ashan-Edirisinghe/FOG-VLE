@@ -26,12 +26,31 @@
                     </div>
                     <div class="upload-body">
                         <p class="upload-instruction">Specify a script file to upload</p>
+                        
+                        <!-- Success/Error Messages -->
+                        @if(session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+                        
+                        @if(session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
+                        
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $error)
+                                    <p>{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @endif
+                        
                         <div class="upload-area">
                             <div class="upload-content">
                                 <p>Drag & Drop File</p>
                                 <p>Or</p>
                               <!-- form to upload -->
                                  <form action="/evaluation" method="POST" enctype="multipart/form-data">
+                                    @csrf
 
                
 
