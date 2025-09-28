@@ -6,7 +6,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\adminLogin;
 use App\Http\Controllers\admin_dash_controller;
-use App\Http\Controllers\FinalSubmissionController;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\SubmitionController;
@@ -74,9 +73,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/final-submission', function () {
         return view('final-submission');
     })->name('final.submission');
-    
-    // Add POST route for file submission
-    Route::post('/final-submission', [\App\Http\Controllers\FinalSubmissionController::class, 'store'])->name('final.submission.store');
 });
 
 // Other existing routes

@@ -164,6 +164,18 @@
 
     <!-- Header -->
     <header>
+        <!-- Logout button positioned at very top -->
+        @auth
+        <div class="position-fixed top-0 end-0 p-2" style="z-index: 9999;">
+            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="logout-btn-top ">
+                    <i class="fas fa-sign-out-alt me-2"></i>
+                </button>
+            </form>
+        </div>
+        @endauth
+        
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="/">
@@ -191,7 +203,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
-                        </li> 
+                        </li>
                     </ul>
                 </div>
             </div>

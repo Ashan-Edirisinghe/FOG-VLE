@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FinalSubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +17,3 @@ use App\Http\Controllers\FinalSubmissionController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('/final-submission', [FinalSubmissionController::class, 'store']);

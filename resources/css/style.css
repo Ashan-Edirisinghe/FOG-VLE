@@ -1,1 +1,141 @@
 /* YOUR CUSTOM STYLES */
+
+/* Logout Button Styles */
+.logout-btn {
+    border: none !important;
+    background: none !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 500 !important;
+    margin: 0 15px !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+}
+
+.logout-btn:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    transform: translateY(-1px) !important;
+}
+
+.logout-btn:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Small Logout Button Styles */
+.logout-btn-small {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    font-weight: 400 !important;
+    margin: 0 10px !important;
+    padding: 4px 12px !important;
+    border-radius: 20px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    font-size: 12px !important;
+    min-width: auto !important;
+}
+
+.logout-btn-small:hover {
+    color: #333 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+    transform: translateY(-1px) !important;
+}
+
+.logout-btn-small:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Primary Logout Button - Top Right Position */
+.logout-btn-primary {
+    background: #007bff !important;
+    border: 2px solid #007bff !important;
+    color: white !important;
+    font-weight: 500 !important;
+    padding: 6px 16px !important;
+    border-radius: 25px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    font-size: 13px !important;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3) !important;
+    position: relative !important;
+    z-index: 1050 !important;
+}
+
+.logout-btn-primary:hover {
+    background: #0056b3 !important;
+    border-color: #0056b3 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4) !important;
+}
+
+.logout-btn-primary:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4) !important;
+}
+
+.logout-btn-primary:active {
+    transform: translateY(0px) !important;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3) !important;
+}
+
+/* Light Blue Logout Button - Very Top Position */
+.logout-btn-top {
+    background: #87CEEB !important;
+    border: 2px solid #87CEEB !important;
+    color: #333 !important;
+    font-weight: 500 !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    font-size: 12px !important;
+    box-shadow: 0 2px 6px rgba(135, 206, 235, 0.4) !important;
+    cursor: pointer !important;
+}
+
+.logout-btn-top:hover {
+    background: #87CEFA !important;
+    border-color: #87CEFA !important;
+    color: #222 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 10px rgba(135, 206, 235, 0.5) !important;
+}
+
+.logout-btn-top:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.5) !important;
+}
+
+.logout-btn-top:active {
+    transform: translateY(0px) !important;
+    box-shadow: 0 2px 6px rgba(135, 206, 235, 0.4) !important;
+}
+
+/* Ensure the navbar has relative positioning for absolute logout button */
+.navbar {
+    position: relative !important;
+}
+
+/* Make sure the nav link styling is consistent */
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 500 !important;
+    margin: 0 15px !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}

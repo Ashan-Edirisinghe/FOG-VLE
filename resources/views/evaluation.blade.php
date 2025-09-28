@@ -29,7 +29,16 @@
                         
                         <!-- Success/Error Messages -->
                         @if(session('success'))
-                            <div class="alert alert-success">{{ session('success') }}</div>
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                                
+                                <!-- File Details -->
+                                @if(session('fileName'))
+                                    <br><strong>Uploaded File:</strong> {{ session('fileName') }}
+                                @endif
+                                
+                               
+                            </div>
                         @endif
                         
                         @if(session('error'))
@@ -112,6 +121,27 @@
 
 @push('styles')
 <style>
+    /* Alert Styles */
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
 
     .tab-navigation {
         background: #d0d0d0;
