@@ -9,6 +9,7 @@ use App\Http\Controllers\admin_dash_controller;
 use App\Http\Controllers\FinalSubmissionController;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\SubmitionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,4 +137,5 @@ Route::get('/debug-candidates', function() {
 
 
 
-//timecontroller routes
+//submition routes
+Route::post('/evaluation', [SubmitionController::class, 'submition'])->name('evaluation.store');

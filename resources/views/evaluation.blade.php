@@ -30,14 +30,28 @@
                             <div class="upload-content">
                                 <p>Drag & Drop File</p>
                                 <p>Or</p>
-                                <button type="button" class="btn-browse" id="browseSemester">
-                                    <i class="fas fa-folder"></i> BROWSE
-                                </button>
-                                <input type="file" id="semesterFile" style="display:none;" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                              <!-- form to upload -->
+                                 <form action="/evaluation" method="POST" enctype="multipart/form-data">
+
+               
+
+                                <input 
+                                    type="file" 
+                                    name="report-submission"  
+                                    accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                                    style="border: 1px solid #ccc; padding: 6px 10px; border-radius: 4px; background: #fff; font-size: 1rem;"
+                                >
+                                       
+                                
+                                <br> <br>
+                                <button type="submit" class="btn btn-primary"  id="uploadBtn">Upload</button>
+                                
+                            </form>
                             </div>
+
                         </div>
                         <div class="upload-actions">
-                            <button type="button" class="btn-action btn-next">NEXT</button>
+                            
                             <button type="button" class="btn-action btn-cancel">CANCEL</button>
                         </div>
                     </div>
@@ -194,107 +208,5 @@
 </style>
 @endpush
 
-@push('scripts')
-<script>
-    const semesterTab = document.getElementById("semesterTab");
-    const finalTab = document.getElementById("finalTab");
-    const semesterReport = document.getElementById("semesterReport");
-    const finalReport = document.getElementById("finalReport");
-
-    // Tab switching
-    semesterTab.addEventListener("click", () => {
-        semesterTab.classList.add("active");
-        finalTab.classList.remove("active");
-        semesterReport.style.display = "block";
-        finalReport.style.display = "none";
-    });
-
-    finalTab.addEventListener("click", () => {
-        finalTab.classList.add("active");
-        semesterTab.classList.remove("active");
-        finalReport.style.display = "block";
-        semesterReport.style.display = "none";
-    });
-
-    // File upload handlers
-    function setupUpload(sectionId, fileInputId, browseBtnId) {
-        const section = document.getElementById(sectionId);
-        const fileInput = document.getElementById(fileInputId);
-        const browseBtn = document.getElementById(browseBtnId);
-        const uploadArea = section.querySelector('.upload-area');
-        const uploadContent = section.querySelector('.upload-content');
-        const nextBtn = section.querySelector('.btn-next');
-        const cancelBtn = section.querySelector('.btn-cancel');
-
-        // Browse button
-        browseBtn.addEventListener("click", () => fileInput.click());
-
-        // File input change
-        fileInput.addEventListener("change", () => {
-            if (fileInput.files.length > 0) {
-                displaySelectedFile(fileInput.files[0]);
-            }
-        });
-
-        // Drag and drop
-        uploadArea.addEventListener("dragover", e => {
-            e.preventDefault();
-            uploadArea.style.borderColor = "#1e3c72";
-        });
-        uploadArea.addEventListener("dragleave", e => {
-            e.preventDefault();
-            uploadArea.style.borderColor = "#ccc";
-        });
-        uploadArea.addEventListener("drop", e => {
-            e.preventDefault();
-            uploadArea.style.borderColor = "#ccc";
-            if (e.dataTransfer.files.length > 0) {
-                fileInput.files = e.dataTransfer.files;
-                displaySelectedFile(e.dataTransfer.files[0]);
-            }
-        });
-
-        // Display selected file
-        function displaySelectedFile(file) {
-            uploadArea.classList.add("file-selected");
-            uploadContent.innerHTML = `
-                <p><i class="fas fa-file"></i> ${file.name}</p>
-                <p class="file-name">File selected successfully!</p>
-                <button type="button" class="btn-browse">
-                    <i class="fas fa-folder"></i> CHANGE FILE
-                </button>
-            `;
-            uploadContent.querySelector("button").addEventListener("click", () => fileInput.click());
-        }
-
-        // Next button
-        nextBtn.addEventListener("click", () => {
-            if (fileInput.files.length > 0) {
-                alert("File uploaded successfully! Proceeding to next step...");
-            } else {
-                alert("Please select a file to upload first.");
-            }
-        });
-
-        // Cancel button
-        cancelBtn.addEventListener("click", () => {
-            fileInput.value = "";
-            uploadArea.classList.remove("file-selected");
-            uploadContent.innerHTML = `
-                <p>Drag & Drop File</p>
-                <p>Or</p>
-                <button type="button" class="btn-browse">
-                    <i class="fas fa-folder"></i> BROWSE
-                </button>
-            `;
-            uploadContent.querySelector("button").addEventListener("click", () => fileInput.click());
-        });
-    }
-
-    // Apply to both sections
-    setupUpload("semesterReport", "semesterFile", "browseSemester");
-    setupUpload("finalReport", "finalFile", "browseFinal");
-
-</script>
-@endpush
+ 
 @endsection
